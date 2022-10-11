@@ -94,7 +94,7 @@ Note:: all user should have account and it can log in and log out from account
 [about support here]
 
 ## Project Timeline
-![Usecase diagram](/image/milestone.jpg "Usecase diagram")
+![Usecase diagram](/image/milestone.png "Usecase diagram")
 
 
 ## Software Process
