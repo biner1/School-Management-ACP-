@@ -55,15 +55,41 @@ Showing the program view after successful login \
 
 
 ## Software Process
-increametnal or iterative
+We use the iterative software development process,because we need to implement a small set of the software requirements until the system is complete.
+The iterative software model develops a system through building small portions of all the features. This helps to meet initial scope quickly and release it for feedback
 
 ## Tools and Programs used
-
-[list of tools]
+* Programming languages:
+    * Java
+      *Dbms:
+    * Mysql
+      *Ide:
+    * Intellij
+      *Tools:
+    * Git
+    * Github
+    * Google docs
+    * diagrams.net
 
 ## Team
-[team list here]
+* #### Biner Omer
+responsible for Building and Designing the project.
+* #### Zeynab Hamad
+    * responsible for Building and Designing the project.
+* #### Abdullah Ahmad
+    * responsible for Building and Designing the project.
+* #### Darya Naji
+    * responsible for Building and Designing the project.
+* #### Mohammed Malah
+    * responsible for Building and Designing the project.
+* #### Naz Farid
+    * responsible for Building and Designing the project.
 
 ## Contact us
-[contacts here]
+* Biner Omer(bineromer19@gmail.com)
+* Zeynab Hamad(Zaynabhamad950@gmail.com)
+* Abdullah Ahmad(Abdullaahmadsheikh@gmail.com)
+* Darya Naji(Daaryaa.naji@gmail.com)
+* Mohammed Malah(muhammedslahqadir@gmail.com)
+* Naz Farid(naz.f.kamal@gmail.com)
 
