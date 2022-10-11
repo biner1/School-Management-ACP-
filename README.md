@@ -35,16 +35,19 @@ Showing the program view after successful login \
 [picture here]
 
 
-## Usecase diagram
-[picture here]
+## Usecase Diagram
+![Usecase diagram](/image/usecasediagram.jpg "Usecase diagram")
 
 ## Application Actors
-
-[actors here]
+ 
+* Principal
+* Admin
+* Teacher
+* Student
 
 ## Functionality
 Note:: all user should have account and it can log in and log out from account
-* Principal
+## Principal
 * Mark teacher attendance
 * View teacher performance
 * View Student performance
