@@ -25,9 +25,9 @@ This project is built specifically for a private school, but can also be used by
 * Less prone to human error
 * More productive
 
-## Application flow
+## Application view flow
 Showing the program view after successful login \
-[picture here]
+![application flow](/image/appflow.png "application view flow")
 
 
 
@@ -43,9 +43,49 @@ Showing the program view after successful login \
 [actors here]
 
 ## Functionality
-{.
-…
-.}
+Note:: all user should have account and it can log in and log out from account
+* Principal
+* Mark teacher attendance
+* View teacher performance
+* View Student performance
+* Update student info
+* Update teacher info
+* View and modify staff attendance
+ 
+ 
+### Admin
+* View and modify Staff  attendance
+*View mark
+* Generate student/staff report
+* Manage User
+    * Change user password
+    * Manage student
+    * Manage teacher
+    * View and modify teacher attendance
+    * View and modify student attendance
+* Generate Teacher Report
+* Create Time Table
+ 
+ 
+### Teacher
+* Mark student attendance
+* Create exam
+* Grade Student
+* Generate student Report
+ 
+ 
+ 
+### Student
+* View time table
+* View attendance
+* View marks
+* Pay fee
+ 
+ 
+ 
+### Accountant
+* Manage student finance
+* Manage teacher/staff finance
 
 ## Maintenance and support
 [about support here]
