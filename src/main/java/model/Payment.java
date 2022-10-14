@@ -1,4 +1,4 @@
-package org.example;
+package main.java.model;
 import java.util.Objects;
 
 public class Payment {
