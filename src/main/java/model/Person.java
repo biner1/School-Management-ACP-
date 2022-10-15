@@ -7,6 +7,8 @@ abstract class Person {
     private String email;
     private String address;
     private String phone;
+    private String username;
+    private String userPassword;
 
     public Person(int id, String gender, String birthDate, String email, String address, String phone) {
         this.id = id;
@@ -65,5 +67,19 @@ abstract class Person {
         this.phone = phone;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
 }
