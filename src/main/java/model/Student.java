@@ -1,36 +1,42 @@
 package main.java.model;
 
 public class Student extends Person {
-    private String firstName;
-    private String lastName;
 
-    public Student(int id, String firstName, String lastName, String gender, String birthDate, String email, String address, String phone) {
-        super(id, gender, birthDate, email, address, phone);
-        this.firstName = firstName;
-        this.lastName = lastName;
+    private String fullName;
+    private int classId;
+
+    public Student(int id, String fullName,String username, String gender, String birthDate, String email, String address, String phone, int classId) {
+        super(id,username, gender, birthDate, email, address, phone);
+        this.fullName = fullName;
+        this.classId = classId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Student(int id, String fullName, String username, String gender, String birthDate, String email, String address, String phone, String userPassword, int classId) {
+        super(id, username, gender, birthDate, email, address, phone, userPassword);
+        this.fullName = fullName;
+        this.classId = classId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstName='" + fullName + '\'' +
                 ", gender='" + super.getGender() + '\'' +
                 ", email='" + super.getEmail() + '\'' +
                 '}';

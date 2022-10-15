@@ -1,12 +1,21 @@
 package main.java.model;
 
 public class Accountant extends Person {
+
     private String fullName;
     private String major; //what  he studied
     private int salary;
 
-    public Accountant(int id, String fullName, String major, String gender, String birthDate, String email, String address, String phone, int salary) {
-        super(id, gender, birthDate, email, address, phone);
+
+    public Accountant(int id, String fullName, String major, String username, String gender, String birthDate, String email, String address, String phone, int salary) {
+        super(id, username, gender, birthDate, email, address, phone);
+        this.fullName = fullName;
+        this.major = major;
+        this.salary = salary;
+    }
+
+    public Accountant(int id, String fullName, String major, String username, String gender, String birthDate, String email, String address, String phone, int salary, String userPassword) {
+        super(id, username, gender, birthDate, email, address, phone, userPassword);
         this.fullName = fullName;
         this.major = major;
         this.salary = salary;

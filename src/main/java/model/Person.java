@@ -1,26 +1,47 @@
 package main.java.model;
 
+import java.util.Objects;
 abstract class Person {
+
     private int id;
+    private String username;
     private String gender;
     private String birthDate;
     private String email;
     private String address;
     private String phone;
-    private String username;
     private String userPassword;
 
-    public Person(int id, String gender, String birthDate, String email, String address, String phone) {
+    // constructor without password
+    public Person(int id, String username, String gender, String birthDate, String email, String address, String phone) {
         this.id = id;
+        this.username = username;
         this.gender = gender;
         this.birthDate = birthDate;
         this.email = email;
         this.address = address;
         this.phone = phone;
+        this.userPassword = null;
+    }
+
+    // constructor with password
+    public Person(int id, String username, String gender, String birthDate, String email, String address, String phone, String userPassword) {
+        this.id = id;
+        this.username = username;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+        this.userPassword = userPassword;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getGender() {
@@ -41,10 +62,6 @@ abstract class Person {
 
     public String getPhone() {
         return phone;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setGender(String gender) {
@@ -81,5 +98,10 @@ abstract class Person {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
