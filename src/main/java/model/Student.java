@@ -2,41 +2,30 @@ package main.java.model;
 
 public class Student extends Person {
 
-    private String fullName;
-    private int classId;
+    private int gradeId;
 
-    public Student(int id, String fullName,String username, String gender, String birthDate, String email, String address, String phone, int classId) {
-        super(id,username, gender, birthDate, email, address, phone);
-        this.fullName = fullName;
-        this.classId = classId;
+    public Student(int id, String userName, String gender, String birthDate, String email, String address, String phone, int gradeId) {
+        this(id, userName, gender, birthDate, email, address, phone, gradeId,null);
+        this.gradeId = gradeId;
+    }
+    public Student(int id, String userName, String gender, String birthDate, String email, String address, String phone, int gradeId, String password) {
+        super(id, userName, gender, birthDate, email, address, phone, password);
+        this.gradeId = gradeId;
     }
 
-    public Student(int id, String fullName, String username, String gender, String birthDate, String email, String address, String phone, String userPassword, int classId) {
-        super(id, username, gender, birthDate, email, address, phone, userPassword);
-        this.fullName = fullName;
-        this.classId = classId;
+
+    public int getGradeId() {
+        return gradeId;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getClassId() {
-        return classId;
-    }
-
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "firstName='" + fullName + '\'' +
+                "firstName='" + super.getUserName() + '\'' +
                 ", gender='" + super.getGender() + '\'' +
                 ", email='" + super.getEmail() + '\'' +
                 '}';

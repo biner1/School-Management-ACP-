@@ -1,18 +1,20 @@
 package main.java.model;
+
 import java.util.Objects;
 
-public class StudentAttendance {
+public class StaffAttendance {
 
     private int id;
     private String date;
-    private int studentId;
     private String status;
+    private int staffId;
 
-    public StudentAttendance(int id, int studentId, String date, String status){
+
+    public StaffAttendance(int id, int staffId, String date, String status){
         this.id = id;
         this.date = date;
-        this.studentId = studentId;
         this.status = status;
+        this.staffId = staffId;
     }
 
     public int getId() {
@@ -25,38 +27,41 @@ public class StudentAttendance {
 
     public String getDate(){
         return date;
-    };
+    }
 
     public void setDate(String date){
         this.date = date;
-    };
-
-    public int getStudentId(){
-        return studentId;
-    };
-
-    public void setStudentId(int studentId){
-        this.studentId = studentId;
-    };
+    }
 
     public String getStatus(){
         return status;
-    };
+    }
 
     public void setStatus(String status){
         this.status = status;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(studentId);
+    public int getStaffId(){
+        return staffId;
     }
 
+    public void setStaffId(int teacherId){
+        this.staffId = teacherId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(staffId);
+    }
+
+    @Override
     public String toString() {
-        return "StudentAttendance{" +
-                "date='" + date + '\''+
-                "studentId='" + studentId+ '\'' +
-                "status='" + status + '\''+
+        return "StaffAttendance{" +
+                "date='" + date + '\'' +
+                ", Status='" + status + '\'' +
+                ", StaffId='" + staffId + '\'' +
                 '}';
     }
+
+
 }

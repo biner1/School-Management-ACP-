@@ -3,23 +3,23 @@ import java.util.Objects;
 
 public class Subject {
 
-    private int studentId;
     private String subjectName;
     private int teacherId;
+    private int gradeId;
 
 
-    public Subject(int studentId, String subjectName , int teacherId){
-        this.studentId=studentId;
-        this.subjectName=subjectName;
+    public Subject(int teacherId, String subjectName ,int gradeId){
         this.teacherId=teacherId;
+        this.subjectName=subjectName;
+        this.gradeId=gradeId;
     }
 
-    public int getStudentId(){
-        return studentId;
+    public int getGradeId() {
+        return gradeId;
     }
 
-    public void setStudentId(int studentId){
-        this.studentId=studentId;
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 
     public String getSubjectName(){
@@ -33,13 +33,14 @@ public class Subject {
     public int getTeacherId(){
         return teacherId;
     }
+
     public void setTeacherId(int teacherId){
         this.teacherId=teacherId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentId);
+        return Objects.hash(teacherId);
     }
 
     @Override
