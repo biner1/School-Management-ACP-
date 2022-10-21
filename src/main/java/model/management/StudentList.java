@@ -2,6 +2,7 @@ package main.java.model.management;
 
 import main.java.model.models.Student;
 
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 public class StudentList {
@@ -28,6 +29,19 @@ public class StudentList {
         return students;
     }
 
+    public Student getStudentById(int id){
+        Student student;
+        return (Student) students.stream().filter(s -> s.getId() ==id).findAny().orElse(null);
 
+    }
+
+    public  ArrayList<Student> getStudentByUsername(String username){
+        return students.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getSizeOfStudents(){
+        return students.size();
+    }
 
 }
+

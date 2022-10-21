@@ -1,6 +1,7 @@
 package main.java;
 
 import main.java.model.models.*;
+import main.java.model.management.StudentList;
 
 import java.util.*;
 
@@ -31,7 +32,12 @@ public class Main {
 
         ArrayList<StudentPayment> ls = new ArrayList<>(Arrays.asList(pm,pm1));
 
-        System.out.println(tbl);
+        //System.out.println(tbl);
+
+        StudentList stList = new StudentList();
+        System.out.println(stList.getStudentById(9));
+
+
     }
 
 }
