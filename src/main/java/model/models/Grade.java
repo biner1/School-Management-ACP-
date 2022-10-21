@@ -1,8 +1,9 @@
 package main.java.model.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Grade {
+public class Grade implements Serializable {
     private int gradeId;
     private String gradeName;
     private int gradeYear;

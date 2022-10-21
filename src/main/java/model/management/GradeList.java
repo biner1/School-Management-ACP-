@@ -1,6 +1,7 @@
 package main.java.model.management;
 
 import main.java.model.models.Grade;
+import main.java.model.models.Student;
 
 import java.util.ArrayList;
 
@@ -11,21 +12,19 @@ public class GradeList {
     public GradeList(){
         grades = new ArrayList<Grade>();
 
-        grades.add(new Grade(1,"1",2022));
-        grades.add(new Grade(2,"2",2021));
-        grades.add(new Grade(3,"3",2020));
-        grades.add(new Grade(4,"4",2019));
-        grades.add(new Grade(5,"5",2018));
-        grades.add(new Grade(6,"6",2017));
-        grades.add(new Grade(7,"7",2016));
-        grades.add(new Grade(8,"8",2015));
-        grades.add(new Grade(9,"9",2014));
-        grades.add(new Grade(10,"10",2013));
-        grades.add(new Grade(11,"11",2012));
-        grades.add(new Grade(12,"12",2011));
+        grades.add(new Grade(1,"1A",2022));
+        grades.add(new Grade(2,"2A",2022));
+        grades.add(new Grade(3,"3A",2022));
+        grades.add(new Grade(4,"4A",2022));
+        grades.add(new Grade(5,"5A",2022));
+        grades.add(new Grade(6,"6A",2022));
     }
 
     public void addGrade(Grade grade){
         grades.add(grade);
+    }
+
+    public ArrayList<Grade> getGradeList(){
+        return grades;
     }
 }

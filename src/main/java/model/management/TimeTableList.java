@@ -1,5 +1,6 @@
 package main.java.model.management;
 
+import main.java.model.models.Grade;
 import main.java.model.models.TimeTable;
 
 import java.util.ArrayList;
@@ -28,6 +29,10 @@ public class TimeTableList {
 
     public void addTimeTable(TimeTable timeTable){
         timeTables.add(timeTable);
+    }
+
+    public ArrayList<TimeTable> getTimeTableList(){
+        return timeTables;
     }
 
 }
