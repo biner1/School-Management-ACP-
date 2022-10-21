@@ -1,7 +1,9 @@
 package main.java.model.models;
-import java.util.Objects;
 
-public class StudentAttendance {
+import java.util.Objects;
+import java.io.Serializable;
+
+public class StudentAttendance implements  Serializable{
 
     private int id;
     private String date;
