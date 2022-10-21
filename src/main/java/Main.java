@@ -1,6 +1,8 @@
 package main.java;
 
-import main.java.model.*;
+import main.java.model.models.*;
+import main.java.model.management.StudentList;
+
 import java.util.*;
 
 public class Main {
@@ -15,8 +17,8 @@ public class Main {
         Grade cls1 = new Grade(1, "first", 2000);
         Subject sub1 = new Subject(1, "math" , 1);
         Exam exm = new Exam(1, 1 , "informatics", "22-2-2022");
-        Set<String> set = new HashSet<>(Arrays.asList("math","english","kurdish"));
-        TimeTable tbl = new TimeTable(1,set,"08:00");
+        Map<String,String> map = Map.of("math","8:00", "english","9:00", "kurdish","10:00");
+        TimeTable tbl = new TimeTable(1,map);
 
         ExamGrade eg = new ExamGrade(1, 1, 78, 1);
 
@@ -30,7 +32,12 @@ public class Main {
 
         ArrayList<StudentPayment> ls = new ArrayList<>(Arrays.asList(pm,pm1));
 
-        System.out.println(stu1.getGradeId());
+        //System.out.println(tbl);
+
+        StudentList stList = new StudentList();
+        System.out.println(stList.getStudentById(9));
+
+
     }
 
 }
