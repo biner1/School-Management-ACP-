@@ -32,14 +32,14 @@ public class StaffList {
 
     public Staff getStaffById(int id) {
         Staff staff;
-        return (Staff) staffs.stream().filter(s -> s.getId() == id).findAny().orElse(null);
+        return staffs.stream().filter(s -> s.getId() == id).findAny().orElse(null);
     }
 
     public  ArrayList<Staff> getStaffByUsername(String username){
-        return (ArrayList<Staff>) staffs.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        return staffs.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int getSizeOfStaffs(){
+    public int getNumberOfStaffs(){
         return staffs.size();
     }
 

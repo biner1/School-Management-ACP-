@@ -31,7 +31,7 @@ public class StudentList {
 
     public Student getStudentById(int id){
         Student student;
-        return (Student) students.stream().filter(s -> s.getId() ==id).findAny().orElse(null);
+        return students.stream().filter(s -> s.getId() ==id).findAny().orElse(null);
 
     }
 
@@ -39,7 +39,7 @@ public class StudentList {
         return students.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public int getSizeOfStudents(){
+    public int getNumberOfStudents(){
         return students.size();
     }
 
