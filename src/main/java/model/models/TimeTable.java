@@ -14,6 +14,7 @@ public class TimeTable {
     }
 
 
+
     public int getGradeId(){
         return gradeId;
     }
