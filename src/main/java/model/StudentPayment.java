@@ -1,15 +1,13 @@
 package main.java.model;
 import java.util.Objects;
 
-public class Payment {
+public class StudentPayment {
     private int paymentId;
     private int studentId;
     private int paymentAmount;
-
     private String paymentDate;
 
-
-    public Payment(int paymentId, int studentId , int paymentAmount, String paymentDate){
+    public StudentPayment(int paymentId, int studentId , int paymentAmount, String paymentDate){
         this.paymentId=paymentId;
         this.studentId=studentId;
         this.paymentAmount=paymentAmount;
@@ -50,7 +48,7 @@ public class Payment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentId,paymentId);
+        return Objects.hash(paymentId);
     }
 
 

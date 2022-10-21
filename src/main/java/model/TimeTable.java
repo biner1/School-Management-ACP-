@@ -1,53 +1,53 @@
 package main.java.model;
+
 import java.util.Objects;
+import java.util.Set;
 
 public class TimeTable {
-    private int tableId;
-    private int classId;
-    private String subjects;
+
+    private int gradeId;
+    private Set<String> subjects;
     private String time;
 
-    public TimeTable(int tableid, int classId, String subjects, String time){
-        this.tableId = tableid;
-        this.classId = classId;
+    public TimeTable(int classId, Set<String> subjects, String time){
+        this.gradeId = gradeId;
         this.subjects = subjects;
         this.time = time;
+    }
 
+
+    public int getGradeId(){
+        return gradeId;
     }
-    public int gettableId(){
-        return tableId;
+
+    public void setGradeId(int id){
+        this.gradeId = id;
     }
-    public void settableId(int id){
-        this.tableId = id;
-    }
-    public int getclassId(){
-        return classId;
-    }
-    public void setclassId(int id){
-        this.classId = id;
-    }
-    public String getSubjects(){
+
+    public Set<String> getSubjects(){
         return  subjects;
     }
-    public void setSubjects(String subjects){
+
+    public void setSubjects(Set<String> subjects){
         this.subjects = subjects;
     }
-    public String gettime(){
+
+    public String getTime(){
         return  time;
     }
-    public void settime(String time){
+
+    public void setTime(String time){
         this.time = time;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tableId,classId);
+        return Objects.hash(gradeId);
     }
 
     public String toString(){
         return "TimeTable{" +
-                "tableId='" + tableId + '\'' +
-                ", classId='" + classId + '\'' +
+                ", gradeId='" + gradeId + '\'' +
                 ", subjects='" + subjects + '\'' +
                 ", time='" + time + '\'' +
                 '}';

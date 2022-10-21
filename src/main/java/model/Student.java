@@ -1,36 +1,31 @@
 package main.java.model;
 
 public class Student extends Person {
-    private String firstName;
-    private String lastName;
 
-    public Student(int id, String firstName, String lastName, String gender, String birthDate, String email, String address, String phone) {
-        super(id, gender, birthDate, email, address, phone);
-        this.firstName = firstName;
-        this.lastName = lastName;
+    private int gradeId;
+
+    public Student(int id, String userName, String gender, String birthDate, String email, String address, String phone, int gradeId) {
+        this(id, userName, gender, birthDate, email, address, phone, gradeId,null);
+        this.gradeId = gradeId;
+    }
+    public Student(int id, String userName, String gender, String birthDate, String email, String address, String phone, int gradeId, String password) {
+        super(id, userName, gender, birthDate, email, address, phone, password);
+        this.gradeId = gradeId;
     }
 
-    public String getFirstName() {
-        return firstName;
+
+    public int getGradeId() {
+        return gradeId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setGradeId(int gradeId) {
+        this.gradeId = gradeId;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstName='" + super.getUserName() + '\'' +
                 ", gender='" + super.getGender() + '\'' +
                 ", email='" + super.getEmail() + '\'' +
                 '}';

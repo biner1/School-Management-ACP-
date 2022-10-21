@@ -5,9 +5,9 @@ public class School {
     private String schoolName;
     private String schoolAddress;
     private String schoolType;
-    private int schoolPhone;
+    private String  schoolPhone;
 
-    public School(String schoolName, String schoolAddress, String schoolType, int schoolPhone){
+    public School(String schoolName, String schoolAddress, String schoolType, String schoolPhone){
         this.schoolAddress = schoolAddress;
         this.schoolName = schoolName;
         this.schoolType = schoolType;
@@ -38,11 +38,11 @@ public class School {
         this.schoolType = schoolType;
     }
 
-    public int getSchoolPhone(){
+    public String  getSchoolPhone(){
         return schoolPhone;
     }
 
-    public void setSchoolPhone(int schoolPhone){
+    public void setSchoolPhone(String schoolPhone){
         this.schoolPhone = schoolPhone;
     }
 

@@ -117,11 +117,11 @@ The iterative software model develops a system through building small portions o
  
 * Programming languages:
     * Java
-*Dbms:
+* Dbms:
    * Mysql
-*Ide:
+* Ide:
    * Intellij
-*Tools:
+* Tools:
     * Git
     * Github
     * Google docs
