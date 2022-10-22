@@ -1,8 +1,6 @@
 package main.java.model.management;
 
 import main.java.model.models.Grade;
-import main.java.model.models.Student;
-
 import java.util.ArrayList;
 
 public class GradeList {

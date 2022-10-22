@@ -1,5 +1,4 @@
 package main.java.model.management;
-import main.java.model.models.Exam;
 import main.java.model.models.ExamGrade;
 import java.util.ArrayList;
 
