@@ -2,7 +2,10 @@ package main.java.model.models;
 
 import java.util.Objects;
 
-public class StaffAttendance {
+import java.io.Serializable;
+
+
+public class StaffAttendance implements Serializable {
 
     private int id;
     private String date;
