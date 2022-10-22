@@ -1,7 +1,8 @@
 package main.java.model.models;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class StudentPayment {
+public class StudentPayment implements Serializable {
     private int paymentId;
     private int studentId;
     private int paymentAmount;

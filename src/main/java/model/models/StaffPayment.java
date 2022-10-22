@@ -1,7 +1,8 @@
 package main.java.model.models;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class StaffPayment {
+public class StaffPayment implements Serializable {
     private int paymentId;
     private int staffId;
     private int salary;
