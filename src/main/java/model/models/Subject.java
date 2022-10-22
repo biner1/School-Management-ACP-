@@ -1,7 +1,10 @@
 package main.java.model.models;
-import java.util.Objects;
 
-public class Subject {
+import java.util.Objects;
+import java.io.Serializable;
+
+
+public class Subject implements  Serializable{
 
     private String subjectName;
     private int teacherId;

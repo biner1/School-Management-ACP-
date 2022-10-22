@@ -1,9 +1,10 @@
 package main.java.model.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Map;
 
-public class TimeTable {
+public class TimeTable implements Serializable {
 
     private int gradeId;
     private Map<String,String> subjects;
@@ -12,7 +13,6 @@ public class TimeTable {
         this.gradeId = gradeId;
         this.subjects = subjects;
     }
-
 
     public int getGradeId(){
         return gradeId;
