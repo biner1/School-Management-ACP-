@@ -14,7 +14,6 @@ public class TimeTable implements Serializable {
         this.subjects = subjects;
     }
 
-
     public int getGradeId(){
         return gradeId;
     }
