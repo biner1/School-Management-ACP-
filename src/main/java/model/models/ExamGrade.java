@@ -1,8 +1,9 @@
 package main.java.model.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ExamGrade {
+public class ExamGrade implements Serializable {
 
     private int id;
     private int studentId;
