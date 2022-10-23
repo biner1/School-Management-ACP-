@@ -1,7 +1,6 @@
 package main.java.model.management;
-
 import java.util.ArrayList;
-
+import java.util.stream.Collectors;
 import main.java.model.models.Subject;
 
 public class SubjectList {
@@ -32,4 +31,17 @@ public class SubjectList {
     public ArrayList<Subject> getSubjects(){
         return subjects;
     }
+
+    public  ArrayList<Subject> getSubjectByName(String name){
+        return subjects.stream().filter(s -> s.getSubjectName().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Subject> getSubjectByGradeId(int id){
+        return subjects.stream().filter(s -> s.getGradeId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Subject> getSubjectByTeacherId(int id){
+        return subjects.stream().filter(s -> s.getTeacherId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
 }
