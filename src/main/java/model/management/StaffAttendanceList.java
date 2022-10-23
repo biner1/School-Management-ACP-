@@ -1,6 +1,7 @@
 package main.java.model.management;
-
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import main.java.model.models.StaffAttendance;
 
@@ -31,5 +32,17 @@ public class StaffAttendanceList {
 
     public ArrayList<StaffAttendance> getStaffAttendances() {
         return staffAttendances;
+    }
+
+    public ArrayList<StaffAttendance> getStaffAttendanceByStaffId(int id){
+        return staffAttendances.stream().filter(g -> g.getStaffId() ==id).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<StaffAttendance> getStaffAttendanceByDate(String date){
+        return staffAttendances.stream().filter(g -> Objects.equals(g.getDate(), date)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public ArrayList<StaffAttendance> getStaffAttendanceByStatus(String status){
+        return staffAttendances.stream().filter(g -> Objects.equals(g.getStatus(), status)).collect(Collectors.toCollection(ArrayList::new));
     }
 }
