@@ -1,11 +1,8 @@
 package main.java.model.management;
-import main.java.model.models.Exam;
-import main.java.model.models.ExamGrade;
-import main.java.model.models.Student;
 
+import main.java.model.models.Exam;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ExamList{

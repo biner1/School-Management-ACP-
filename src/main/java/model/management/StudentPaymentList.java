@@ -1,8 +1,11 @@
 package main.java.model.management;
-import main.java.model.models.StudentPayment;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import main.java.model.models.StudentPayment;
+
 
 public class StudentPaymentList {
     private ArrayList<StudentPayment>StudentPayments;

@@ -1,7 +1,9 @@
 package main.java.model.management;
-import main.java.model.models.Student;
+
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+
+import main.java.model.models.Student;
 
 public class StudentList {
 

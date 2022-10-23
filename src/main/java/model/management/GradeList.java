@@ -1,49 +1,43 @@
 package main.java.model.management;
-import main.java.model.models.Exam;
-import main.java.model.models.ExamGrade;
-import main.java.model.models.Student;
-
+import main.java.model.models.Grade;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ExamList{
-    private ArrayList<Exam> Exams;
+public class GradeList {
 
-    public ExamList(){
-        Exams = new ArrayList<>();
+    public static ArrayList<Grade> grades;
 
-        //TODO delete examId
-        Exams.add(new Exam(1, 1 , "informatics", "1-2-2022"));
-        Exams.add(new Exam(2, 2 , "Software", "2-2-2022"));
-        Exams.add(new Exam(3, 3 , "Math", "3-2-2022"));
-        Exams.add(new Exam(4, 4 , "Analysis", "4-2-2022"));
-        Exams.add(new Exam(5, 5 , "AI", "5-2-2022"));
+    public GradeList(){
+        grades = new ArrayList<Grade>();
 
+        grades.add(new Grade(1,"1A",2022));
+        grades.add(new Grade(2,"1B",2022));
+        grades.add(new Grade(3,"2A",2022));
+        grades.add(new Grade(4,"2B",2022));
+        grades.add(new Grade(5,"3A",2022));
+        grades.add(new Grade(6,"3B",2022));
+        grades.add(new Grade(7,"4A",2022));
+        grades.add(new Grade(8,"4B",2022));
+        grades.add(new Grade(9,"5A",2022));
+        grades.add(new Grade(10,"5B",2022));
+        grades.add(new Grade(11,"6A",2022));
+        grades.add(new Grade(12,"6B",2022));
     }
 
-    public void addExam(Exam exam){
-
-        Exams.add(exam);
+    public void addGrade(Grade grade){
+        grades.add(grade);
     }
 
-    public ArrayList<Exam> getExams(){
-        return Exams;
+    public ArrayList<Grade> getGradeList(){
+        return grades;
     }
 
-
-    public  ArrayList<Exam> getExamByName(String name){
-        return Exams.stream().filter(s -> s.getExamDesc().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    public ArrayList<Grade> getStudentByGradeYear(int year){
+        return grades.stream().filter(s -> s.getGradeYear() ==(year)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Exam> getExamGradeBySubjectId(int id){
-        return Exams.stream().filter(s -> s.getSubjectId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
+    public  ArrayList<Grade> getStudentByUsername(String username){
+        return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
-
-    public  ArrayList<Exam> getExamGradeByDate(String date){
-        return Exams.stream().filter(s -> s.getDate().toLowerCase().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-
 }

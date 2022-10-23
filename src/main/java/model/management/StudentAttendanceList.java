@@ -1,7 +1,9 @@
 package main.java.model.management;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
 import main.java.model.models.StudentAttendance;
 
 public class StudentAttendanceList {

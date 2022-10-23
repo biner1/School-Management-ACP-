@@ -1,7 +1,9 @@
 package main.java.model.management;
-import main.java.model.models.TimeTable;
+
 import java.util.ArrayList;
 import java.util.Map;
+
+import main.java.model.models.TimeTable;
 
 public class TimeTableList {
 
