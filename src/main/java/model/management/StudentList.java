@@ -1,7 +1,5 @@
 package main.java.model.management;
-
 import main.java.model.models.Student;
-
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 
@@ -37,6 +35,22 @@ public class StudentList {
 
     public  ArrayList<Student> getStudentByUsername(String username){
         return students.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Student> getStudentByGender(String gender){
+        return students.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Student> getStudentByBirthDate(String date){
+        return students.stream().filter(s -> s.getBirthDate().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Student> getStudentByAddress(String address){
+        return students.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Student> getStudentByGradeId(int id){
+        return students.stream().filter(s -> s.getGradeId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStudents(){
