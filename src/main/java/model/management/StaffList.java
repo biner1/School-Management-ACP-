@@ -1,8 +1,6 @@
 package main.java.model.management;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
 import main.java.model.models.Staff;
 import main.java.model.models.StaffRole;
 
@@ -31,12 +29,27 @@ public class StaffList {
     }
 
     public Staff getStaffById(int id) {
-        Staff staff;
         return staffs.stream().filter(s -> s.getId() == id).findAny().orElse(null);
     }
 
     public  ArrayList<Staff> getStaffByUsername(String username){
         return staffs.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Staff> getStaffByGender(String gender){
+        return staffs.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Staff> getStaffByBirthDate(String date){
+        return staffs.stream().filter(s -> s.getBirthDate().toLowerCase().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Staff> getStaffByAddress(String address){
+        return staffs.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public  ArrayList<Staff> getStaffBySalary(int salary){
+        return staffs.stream().filter(s -> s.getSalary()==(salary)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStaffs(){
