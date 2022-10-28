@@ -1,10 +1,12 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import main.java.model.models.Staff;
 import main.java.model.models.StaffRole;
+
 
 public class StaffList {
 
@@ -56,6 +58,33 @@ public class StaffList {
 
     public int getNumberOfStaffs(){
         return staffs.size();
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/staffs.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(staffs);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Staff> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/staffs.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            staffs = (ArrayList<Staff>) ois.readObject();
+            ois.close();
+            return staffs;
+        }catch (IOException | ClassNotFoundException e){
+            System.out.println("error with reading file");
+            return null;
+        }
     }
 
 }

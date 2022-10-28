@@ -1,5 +1,6 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class StudentList {
         students.add(new Student(6, "Kamaran", "male", "22-2-2022", "kamaran@kamaran.com", "kalar", "07502222227", 2));
         students.add(new Student(7, "Dilshad", "male", "22-2-2022", "dlshad@dlshad.com", "erbil", "07502222228", 2));
     }
+
 
     public void addStudent(Student student){
         students.add(student);
@@ -57,6 +59,33 @@ public class StudentList {
 
     public int getNumberOfStudents(){
         return students.size();
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(students);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Student> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/students.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            students = (ArrayList<Student>) ois.readObject();
+            ois.close();
+            return students;
+        }catch (IOException | ClassNotFoundException e){
+            System.out.println("error with reading file");
+            return null;
+        }
     }
 
 }
