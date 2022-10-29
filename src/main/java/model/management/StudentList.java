@@ -24,7 +24,9 @@ public class StudentList {
 
 
     public void addStudent(Student student){
+        readFromFile();
         students.add(student);
+        saveToFile();
     }
 
     public ArrayList<Student> getStudents(){
@@ -32,32 +34,38 @@ public class StudentList {
     }
 
     public Student getStudentById(int id){
-        Student student;
+        readFromFile();
         return students.stream().filter(s -> s.getId() ==id).findAny().orElse(null);
 
     }
 
     public  ArrayList<Student> getStudentByUsername(String username){
+        readFromFile();
         return students.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByGender(String gender){
+        readFromFile();
         return students.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByBirthDate(String date){
+        readFromFile();
         return students.stream().filter(s -> s.getBirthDate().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByAddress(String address){
+        readFromFile();
         return students.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByGradeId(int id){
+        readFromFile();
         return students.stream().filter(s -> s.getGradeId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStudents(){
+        readFromFile();
         return students.size();
     }
 
@@ -82,8 +90,12 @@ public class StudentList {
             students = (ArrayList<Student>) ois.readObject();
             ois.close();
             return students;
-        }catch (IOException | ClassNotFoundException e){
+        }catch (IOException e){
             System.out.println("error with reading file");
+            return null;
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("ClassNotFoundException");
             return null;
         }
     }

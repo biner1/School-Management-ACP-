@@ -25,38 +25,48 @@ public class StaffList {
     }// StaffList
 
     public void addStaff(Staff staff){
+        readFromFile();
         staffs.add(staff);
+        saveToFile();
     }
 
     public ArrayList<Staff> getStaffs() {
+        readFromFile();
         return staffs;
     }
 
     public Staff getStaffById(int id) {
+        readFromFile();
         return staffs.stream().filter(s -> s.getId() == id).findAny().orElse(null);
     }
 
     public  ArrayList<Staff> getStaffByUsername(String username){
+        readFromFile();
         return staffs.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByGender(String gender){
+        readFromFile();
         return staffs.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByBirthDate(String date){
+        readFromFile();
         return staffs.stream().filter(s -> s.getBirthDate().toLowerCase().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByAddress(String address){
+        readFromFile();
         return staffs.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffBySalary(int salary){
+        readFromFile();
         return staffs.stream().filter(s -> s.getSalary()==(salary)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStaffs(){
+        readFromFile();
         return staffs.size();
     }
 
