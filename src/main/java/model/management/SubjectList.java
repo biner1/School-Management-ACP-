@@ -1,5 +1,6 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ public class SubjectList {
 
     private ArrayList<Subject> subjects;
 
-        public SubjectList(){
+    public SubjectList(){
         subjects = new ArrayList<Subject>();
 
         subjects.add(new Subject(1,"ACP",3));
@@ -27,23 +28,56 @@ public class SubjectList {
     }
 
     public void addSubject(Subject subject){
-            subjects.add(subject);
-        }
+        readFromFile();
+        subjects.add(subject);
+        saveToFile();
+    }
 
     public ArrayList<Subject> getSubjects(){
+        readFromFile();
         return subjects;
     }
 
     public  ArrayList<Subject> getSubjectByName(String name){
+        readFromFile();
         return subjects.stream().filter(s -> s.getSubjectName().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Subject> getSubjectByGradeId(int id){
+        readFromFile();
         return subjects.stream().filter(s -> s.getGradeId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Subject> getSubjectByTeacherId(int id){
+        readFromFile();
         return subjects.stream().filter(s -> s.getTeacherId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
     }
 
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/subjects.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(subjects);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Subject> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/subjects.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            subjects = (ArrayList<Subject>) ois.readObject();
+            ois.close();
+            return subjects;
+        }catch (IOException | ClassNotFoundException e){
+            System.out.println("error with reading file");
+            return null;
+        }
+    }
 }
