@@ -1,10 +1,12 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import main.java.model.models.Staff;
 import main.java.model.models.StaffRole;
+
 
 public class StaffList {
 
@@ -23,39 +25,76 @@ public class StaffList {
     }// StaffList
 
     public void addStaff(Staff staff){
+        readFromFile();
         staffs.add(staff);
+        saveToFile();
     }
 
     public ArrayList<Staff> getStaffs() {
+        readFromFile();
         return staffs;
     }
 
     public Staff getStaffById(int id) {
+        readFromFile();
         return staffs.stream().filter(s -> s.getId() == id).findAny().orElse(null);
     }
 
     public  ArrayList<Staff> getStaffByUsername(String username){
+        readFromFile();
         return staffs.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByGender(String gender){
+        readFromFile();
         return staffs.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByBirthDate(String date){
+        readFromFile();
         return staffs.stream().filter(s -> s.getBirthDate().toLowerCase().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffByAddress(String address){
+        readFromFile();
         return staffs.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Staff> getStaffBySalary(int salary){
+        readFromFile();
         return staffs.stream().filter(s -> s.getSalary()==(salary)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStaffs(){
+        readFromFile();
         return staffs.size();
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/staffs.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(staffs);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Staff> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/staffs.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            staffs = (ArrayList<Staff>) ois.readObject();
+            ois.close();
+            return staffs;
+        }catch (IOException | ClassNotFoundException e){
+            System.out.println("error with reading file");
+            return null;
+        }
     }
 
 }

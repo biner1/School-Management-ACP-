@@ -1,5 +1,6 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 
@@ -21,8 +22,11 @@ public class StudentList {
         students.add(new Student(7, "Dilshad", "male", "22-2-2022", "dlshad@dlshad.com", "erbil", "07502222228", 2));
     }
 
+
     public void addStudent(Student student){
+        readFromFile();
         students.add(student);
+        saveToFile();
     }
 
     public ArrayList<Student> getStudents(){
@@ -30,33 +34,70 @@ public class StudentList {
     }
 
     public Student getStudentById(int id){
-        Student student;
+        readFromFile();
         return students.stream().filter(s -> s.getId() ==id).findAny().orElse(null);
 
     }
 
     public  ArrayList<Student> getStudentByUsername(String username){
+        readFromFile();
         return students.stream().filter(s -> s.getUserName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByGender(String gender){
+        readFromFile();
         return students.stream().filter(s -> s.getGender().toLowerCase().equals(gender.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByBirthDate(String date){
+        readFromFile();
         return students.stream().filter(s -> s.getBirthDate().equals(date.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByAddress(String address){
+        readFromFile();
         return students.stream().filter(s -> s.getAddress().toLowerCase().equals(address.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Student> getStudentByGradeId(int id){
+        readFromFile();
         return students.stream().filter(s -> s.getGradeId() ==(id)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getNumberOfStudents(){
+        readFromFile();
         return students.size();
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(students);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Student> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/students.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            students = (ArrayList<Student>) ois.readObject();
+            ois.close();
+            return students;
+        }catch (IOException e){
+            System.out.println("error with reading file");
+            return null;
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("ClassNotFoundException");
+            return null;
+        }
     }
 
 }
