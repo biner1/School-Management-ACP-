@@ -45,19 +45,7 @@ public class StaffPaymentList {
         return staffPayments.stream().filter(s -> s.getSalary() ==(salary)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public boolean saveToFile(){
-        try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(staffPayments);
-            oos.close();
-            return true;
-        }
-        catch (IOException e){
-            System.out.println("file output error");
-            return false;
-        }
-    }
+
 
     public ArrayList<StaffPayment> readFromFile(){
         try {
@@ -73,6 +61,20 @@ public class StaffPaymentList {
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
             return null;
+        }
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(staffPayments);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
         }
     }
 
