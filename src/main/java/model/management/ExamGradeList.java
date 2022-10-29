@@ -1,45 +1,89 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import main.java.model.models.ExamGrade;
 
 
+
 public class ExamGradeList {
 
-    private ArrayList<ExamGrade> ExamGrades;
+    private ArrayList<ExamGrade> examGrades;
 
     public ExamGradeList(){
-        ExamGrades = new ArrayList<>();
+        examGrades = new ArrayList<>();
         //TODO delete id
-        ExamGrades.add(new ExamGrade(1, 1, 78, 1));
-        ExamGrades.add(new ExamGrade(2, 1, 80, 2));
-        ExamGrades.add(new ExamGrade(3, 1, 88, 3));
-        ExamGrades.add(new ExamGrade(4, 1, 70, 4));
-        ExamGrades.add(new ExamGrade(5, 1, 90, 5));
+        examGrades.add(new ExamGrade(1, 1, 78, 1));
+        examGrades.add(new ExamGrade(2, 1, 80, 2));
+        examGrades.add(new ExamGrade(3, 1, 88, 3));
+        examGrades.add(new ExamGrade(4, 1, 70, 4));
+        examGrades.add(new ExamGrade(5, 1, 90, 5));
 
     }
 
     public void addExamGrade(ExamGrade examG){
-
-        ExamGrades.add(examG);
+        readFromFile();
+        examGrades.add(examG);
+        saveToFile();
     }
 
     public ArrayList<ExamGrade> getExamGrades(){
-        return ExamGrades;
+        return examGrades;
     }
 
     public ExamGrade getExamGradeByExamId(int examId){
-        return ExamGrades.stream().filter(g -> g.getExamId() ==examId).findAny().orElse(null);
+        readFromFile();
+        return examGrades.stream().filter(g -> g.getExamId() ==examId).findAny().orElse(null);
     }
 
     public ArrayList<ExamGrade> getExamGradeByMark(int mark){
-        return ExamGrades.stream().filter(s -> s.getMark() ==(mark)).collect(Collectors.toCollection(ArrayList::new));
+        readFromFile();
+        return examGrades.stream().filter(s -> s.getMark() ==(mark)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<ExamGrade> getExamGradeByStudentId(int studentId){
-        return ExamGrades.stream().filter(s -> s.getStudentId() ==(studentId)).collect(Collectors.toCollection(ArrayList::new));
+        readFromFile();
+        return examGrades.stream().filter(s -> s.getStudentId() ==(studentId)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+
+
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream zed = new FileOutputStream("src/main/java/datafile/ExamGrade.txt");
+            ObjectOutputStream zee = new ObjectOutputStream(zed);
+            zee.writeObject(examGrades);
+            zee.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+
+
+
+
+    public ArrayList<ExamGrade> readFromFile(){
+        try {
+            FileInputStream zed = new FileInputStream("src/main/java/datafile/ExamGrade.txt");
+            ObjectInputStream zee = new ObjectInputStream(zed);
+            examGrades = (ArrayList<ExamGrade>) zee.readObject();
+            zee.close();
+            return examGrades;
+        }catch (IOException e){
+            System.out.println("error with reading file");
+            return null;
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("ClassNotFoundException");
+            return null;
+        }
     }
 
 
