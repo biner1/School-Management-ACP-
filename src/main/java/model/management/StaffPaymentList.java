@@ -32,6 +32,7 @@ public class StaffPaymentList {
     }
 
     public ArrayList<StaffPayment> getStaffPayments(){
+        readFromFile();
         return staffPayments;
     }
 
@@ -49,7 +50,7 @@ public class StaffPaymentList {
 
     public ArrayList<StaffPayment> readFromFile(){
         try {
-            FileInputStream fis = new FileInputStream("src/main/java/datafile/students.txt");
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/staffpayment.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             staffPayments = (ArrayList<StaffPayment>) ois.readObject();
             ois.close();
@@ -66,7 +67,7 @@ public class StaffPaymentList {
 
     public boolean saveToFile(){
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/staffpayment.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(staffPayments);
             oos.close();
