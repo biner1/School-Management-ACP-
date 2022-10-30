@@ -1,12 +1,13 @@
 package main.java.model.management;
 import main.java.model.models.Grade;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class GradeList {
 
-    public static ArrayList<Grade> grades;
+    public ArrayList<Grade> grades;
 
     public GradeList(){
         grades = new ArrayList<Grade>();
@@ -26,18 +27,54 @@ public class GradeList {
     }
 
     public void addGrade(Grade grade){
+        readFromFile();
         grades.add(grade);
+        saveToFile();
     }
 
     public ArrayList<Grade> getGradeList(){
+        readFromFile();
         return grades;
     }
 
     public ArrayList<Grade> getStudentByGradeYear(int year){
+        readFromFile();
         return grades.stream().filter(s -> s.getGradeYear() ==(year)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public  ArrayList<Grade> getStudentByUsername(String username){
+        readFromFile();
         return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public boolean saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/grades.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(grades);
+            oos.close();
+            return true;
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+            return false;
+        }
+    }
+
+    public ArrayList<Grade> readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/grades.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            grades = (ArrayList<Grade>) ois.readObject();
+            ois.close();
+            return grades;
+        }catch (IOException e){
+            System.out.println("error with reading file");
+            return null;
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("ClassNotFoundException");
+            return null;
+        }
     }
 }
