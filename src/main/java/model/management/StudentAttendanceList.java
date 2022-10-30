@@ -55,29 +55,25 @@ public class StudentAttendanceList {
         return studentAttendances.stream().filter(g -> Objects.equals(g.getStatus(), status)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public boolean saveToFile() {
+    public void saveToFile() {
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/studentAttendances.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(studentAttendances);
             oos.close();
-            return true;
         } catch (IOException e) {
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<StudentAttendance> readFromFile() {
+    public void readFromFile() {
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/studentAttendances.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             studentAttendances = (ArrayList<StudentAttendance>) ois.readObject();
             ois.close();
-            return studentAttendances;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("error with reading file");
-            return null;
         }
 
     }

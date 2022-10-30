@@ -51,17 +51,15 @@ public class ExamGradeList {
 
 
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream zed = new FileOutputStream("src/main/java/datafile/ExamGrade.txt");
             ObjectOutputStream zee = new ObjectOutputStream(zed);
             zee.writeObject(examGrades);
             zee.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 

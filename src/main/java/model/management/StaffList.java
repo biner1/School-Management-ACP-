@@ -70,30 +70,26 @@ public class StaffList {
         return staffs.size();
     }
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/staffs.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(staffs);
             oos.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<Staff> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/staffs.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             staffs = (ArrayList<Staff>) ois.readObject();
             ois.close();
-            return staffs;
         }catch (IOException | ClassNotFoundException e){
             System.out.println("error with reading file");
-            return null;
         }
     }
 

@@ -69,34 +69,29 @@ public class StudentList {
         return students.size();
     }
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(students);
             oos.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<Student> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/students.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             students = (ArrayList<Student>) ois.readObject();
             ois.close();
-            return students;
         }catch (IOException e){
             System.out.println("error with reading file");
-            return null;
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
-            return null;
         }
     }
 

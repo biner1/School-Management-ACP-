@@ -38,34 +38,29 @@ public class TimeTableList {
         return timeTables;
     }
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/timetables.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(timeTables);
             oos.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<TimeTable> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/timetables.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             timeTables = (ArrayList<TimeTable>) ois.readObject();
             ois.close();
-            return timeTables;
         }catch (IOException e){
             System.out.println("error with reading file");
-            return null;
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
-            return null;
         }
     }
 

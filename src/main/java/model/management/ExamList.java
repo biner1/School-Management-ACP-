@@ -49,37 +49,32 @@ public class ExamList{
 
 
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream zed = new FileOutputStream("src/main/java/datafile/Exams.txt");
             ObjectOutputStream zee = new ObjectOutputStream(zed);
             zee.writeObject(exams);
             zee.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
 
 
 
-    public ArrayList<Exam> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream zed = new FileInputStream("src/main/java/datafile/Exams.txt");
             ObjectInputStream zee = new ObjectInputStream(zed);
             exams = (ArrayList<Exam>) zee.readObject();
             zee.close();
-            return exams;
         }catch (IOException e){
             System.out.println("error with reading file");
-            return null;
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
-            return null;
         }
     }
 

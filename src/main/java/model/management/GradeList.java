@@ -47,34 +47,29 @@ public class GradeList {
         return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/grades.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(grades);
             oos.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<Grade> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/grades.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             grades = (ArrayList<Grade>) ois.readObject();
             ois.close();
-            return grades;
         }catch (IOException e){
             System.out.println("error with reading file");
-            return null;
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
-            return null;
         }
     }
 }

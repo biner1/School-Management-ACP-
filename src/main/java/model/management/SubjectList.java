@@ -54,30 +54,26 @@ public class SubjectList {
     }
 
 
-    public boolean saveToFile(){
+    public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/subjects.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(subjects);
             oos.close();
-            return true;
         }
         catch (IOException e){
             System.out.println("file output error");
-            return false;
         }
     }
 
-    public ArrayList<Subject> readFromFile(){
+    public void readFromFile(){
         try {
             FileInputStream fis = new FileInputStream("src/main/java/datafile/subjects.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             subjects = (ArrayList<Subject>) ois.readObject();
             ois.close();
-            return subjects;
         }catch (IOException | ClassNotFoundException e){
             System.out.println("error with reading file");
-            return null;
         }
     }
 }
