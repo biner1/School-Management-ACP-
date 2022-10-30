@@ -49,7 +49,7 @@ public class GradeList {
 
     public boolean saveToFile(){
         try {
-            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/timetables.txt");
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/grades.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(grades);
             oos.close();
@@ -63,7 +63,7 @@ public class GradeList {
 
     public ArrayList<Grade> readFromFile(){
         try {
-            FileInputStream fis = new FileInputStream("src/main/java/datafile/timetables.txt");
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/grades.txt");
             ObjectInputStream ois = new ObjectInputStream(fis);
             grades = (ArrayList<Grade>) ois.readObject();
             ois.close();
