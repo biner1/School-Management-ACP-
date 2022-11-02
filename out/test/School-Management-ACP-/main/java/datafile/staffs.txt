@@ -1,0 +1,9 @@
+\AC\ED\00sr\00java.util.ArrayListx\81\D2\99\C7a\9D\00I\00sizexp\00\00\00w\00\00\00sr\00main.java.model.models.Staff\D7\D5hp\BE*\00I\00salaryL\00rolet\00"Lmain/java/model/models/StaffRole;xr\00main.java.model.models.Personp<\E9e\C0\AC\E7\00	I\00idL\00addresst\00Ljava/lang/String;L\00	birthDateq\00~\00L\00emailq\00~\00L\00fullNameq\00~\00L\00genderq\00~\00L\00phoneq\00~\00L\00userNameq\00~\00L\00userPasswordq\00~\00xp\00\00\00t\00halabjat\001-1-2000t\00biner@biner.compt\00malet\0007501111111t\00binert\00password\00\89T@~r\00 main.java.model.models.StaffRole\00\00\00\00\00\00\00\00\00\00xr\00java.lang.Enum\00\00\00\00\00\00\00\00\00\00xpt\00ADMINsq\00~\00\00\00\00t\00erbilt\002-2-2000t\00zeynab@zeynab.compt\00femalet\0007501111113t\00zeynabq\00~\00
+\00j\CF\C0~q\00~\00t\00
+ACCOUNTANTsq\00~\00\00\00\00q\00~\00t\002-2-2002t\00darya@darya.compq\00~\00t\0007501111114t\00daryaq\00~\00
+\00[\8D\80~q\00~\00t\00TEACHERsq\00~\00\00\00\00q\00~\00t\00	21-2-2001t\00muhammed@muhammed.compq\00~\00
+t\0007501111115t\00muhammedq\00~\00
+\00LK@q\00~\00 sq\00~\00\00\00\00q\00~\00t\001-1-2001t\00naz@naz.compq\00~\00t\0007501111116t\00nazq\00~\00
+\00[\8D\80q\00~\00 sq\00~\00\00\00\00t\00slemaniq\00~\00t\00abdulla@abdulla.compq\00~\00
+t\0007501111112t\00abdullaq\00~\00
+\00LK@q\00\00\00\00\00

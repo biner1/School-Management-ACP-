@@ -1,5 +1,6 @@
 package main.java.model.management;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import main.java.model.models.TimeTable;
 
 public class TimeTableList {
 
-    public static ArrayList<TimeTable> timeTables;
+    public ArrayList<TimeTable> timeTables;
 
 
 
@@ -27,12 +28,40 @@ public class TimeTableList {
     }
 
     public void addTimeTable(TimeTable timeTable){
+        readFromFile();
         timeTables.add(timeTable);
+        saveToFile();
     }
 
     public ArrayList<TimeTable> getTimeTableList(){
+        readFromFile();
         return timeTables;
     }
 
-}
+    public void saveToFile(){
+        try {
+            FileOutputStream fos = new FileOutputStream("src/main/java/datafile/timetables.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(timeTables);
+            oos.close();
+        }
+        catch (IOException e){
+            System.out.println("file output error");
+        }
+    }
 
+    public void readFromFile(){
+        try {
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/timetables.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            timeTables = (ArrayList<TimeTable>) ois.readObject();
+            ois.close();
+        }catch (IOException e){
+            System.out.println("error with reading file");
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("ClassNotFoundException");
+        }
+    }
+
+}
