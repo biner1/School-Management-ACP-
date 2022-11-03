@@ -70,6 +70,10 @@ public class StaffList {
         return staffs.size();
     }
 
+    public  Staff getStaffUsernamePassword(String username, String password){
+        return staffs.stream().filter(s -> (s.getUserName().toLowerCase().equals(username.toLowerCase())) && s.getUserPassword().equals(password)).findAny().orElse(null);
+    }
+
     public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/staffs.txt");
