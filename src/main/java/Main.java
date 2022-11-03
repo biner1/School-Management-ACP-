@@ -1,7 +1,7 @@
 package main.java;
 
-import main.java.model.models.*;
-import main.java.model.management.StudentList;
+import main.java.model.*;
+import main.java.controller.StudentList;
 
 import java.util.*;
 
