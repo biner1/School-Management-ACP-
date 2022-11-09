@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.io.*;
@@ -27,6 +28,27 @@ public class StudentList {
         readFromFile();
         students.add(student);
         saveToFile();
+    }
+
+    public boolean deleteStudent(String name){
+        readFromFile();
+        int ind = findStudent(name);
+        if (ind == -1){
+            System.out.println("there is no student with the name: "+name);
+            return false;
+        }
+        students.remove(ind);
+        System.out.println("staff: "+name+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findStudent(String name){
+        for(int i=0;i<students.size();i++){
+            Student student = students.get(i);
+            if (student.getUserName().equals(name)){ return i;}
+        }
+        return -1;
     }
 
     public ArrayList<Student> getStudents(){
@@ -67,6 +89,29 @@ public class StudentList {
     public int getNumberOfStudents(){
         readFromFile();
         return students.size();
+    }
+
+    public int getMaxId(){
+        try{
+            int id = students.stream().max(Comparator.comparing(Student::getId)).get().getId();
+            return id;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public void printStudents(){
+        readFromFile();
+        if(students.isEmpty()){
+            System.out.println("there is no record of student");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|name|birthdate|address|email|phone");
+            for(Student s:students){
+                System.out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getAddress()+"|"+s.getEmail()+"|"+s.getPhone());
+            }
+            System.out.println("=================================================================");
+        }
     }
 
     public void saveToFile(){

@@ -3,6 +3,7 @@ import main.java.model.Grade;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class GradeList {
@@ -32,19 +33,81 @@ public class GradeList {
         saveToFile();
     }
 
+    public boolean deleteGrade(String name){
+        readFromFile();
+        int ind = findGrade(name);
+        if (ind == -1){
+            System.out.println("there is no Grade with the name: "+name);
+            return false;
+        }
+        grades.remove(ind);
+        System.out.println("Grade: "+name+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findGrade(String name){
+        for(int i=0;i<grades.size();i++){
+            Grade grade = grades.get(i);
+            if (grade.getGradeName().equals(name)){ return i;}
+        }
+        return -1;
+    }
+
+
     public ArrayList<Grade> getGradeList(){
         readFromFile();
         return grades;
     }
 
-    public ArrayList<Grade> getStudentByGradeYear(int year){
+    public ArrayList<Grade> getGradesByGradeYear(int year){
         readFromFile();
         return grades.stream().filter(s -> s.getGradeYear() ==(year)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public  ArrayList<Grade> getStudentByUsername(String username){
+    public  ArrayList<Grade> getGradesByName(String name){
         readFromFile();
-        return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getGradeByNameYear(String name, int year) {
+        readFromFile();
+        try {
+            int tmpGrade = grades.stream().filter(s -> (s.getGradeName().toLowerCase().equals(name.toLowerCase())) && (s.getGradeYear() == year)).findAny().get().getGradeId();
+            return tmpGrade;
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
+
+    public int getNumberOfGrades(){
+        readFromFile();
+        return grades.size();
+    }
+
+    public int getMaxId(){
+        readFromFile();
+        try{
+            int id = grades.stream().max(Comparator.comparing(Grade::getGradeId)).get().getGradeId();
+            return id;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public void printGrades(){
+        readFromFile();
+        if(grades.isEmpty()){
+            System.out.println("there is no record of Grades");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|name|year|");
+            for(Grade g:grades){
+                System.out.println(g.getGradeId()+"|"+g.getGradeName()+"|"+g.getGradeYear());
+            }
+            System.out.println("================================================================");
+        }
     }
 
     public void saveToFile(){

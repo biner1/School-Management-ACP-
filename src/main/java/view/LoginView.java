@@ -23,7 +23,6 @@ public class LoginView {
             System.out.println("Enter Password");
             String password = sc.nextLine();
 
-
             staff = staffList.getStaffUsernamePassword(username, password);
             if (staff != null) {
                 String role = staff.getRole();
@@ -41,8 +40,6 @@ public class LoginView {
                         accountant.login();
                     }
                 } // end of switch
-
-
             } else {
                 System.out.println("wrong user name or password");
             }
