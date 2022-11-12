@@ -2,6 +2,8 @@ package main.java.controller;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,27 @@ public class StudentPaymentList {
         saveToFile();
     }
 
+    public boolean deleteStudentPayment(int id){
+        readFromFile();
+        int ind = findStudentPayment(id);
+        if (ind == -1){
+            System.out.println("there is no staff with the name: "+id);
+            return false;
+        }
+        studentPayments.remove(ind);
+        System.out.println("staff: "+id+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findStudentPayment(int id){
+        for(int i=0;i<studentPayments.size();i++){
+            StudentPayment studentPayment = studentPayments.get(i);
+            if (studentPayment.getPaymentId()==(id)){ return i;}
+        }
+        return -1;
+    }
+
     public ArrayList<StudentPayment> getStudentPayments(){
         readFromFile();
         return studentPayments;
@@ -42,6 +65,35 @@ public class StudentPaymentList {
     public  ArrayList<StudentPayment> getStaffPaymentByAmount(int amount){
         readFromFile();
         return studentPayments.stream().filter(s -> s.getPaymentAmount() ==(amount)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public int getNumberOfStudentPayments(){
+        readFromFile();
+        return studentPayments.size();
+    }
+
+    public int getMaxId(){
+        readFromFile();
+        try{
+            int id = studentPayments.stream().max(Comparator.comparing(StudentPayment::getPaymentId)).get().getPaymentId();
+            return id;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public void printStudentPayments(){
+        readFromFile();
+        if(studentPayments.isEmpty()){
+            System.out.println("there is no record of staff");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "payment Id|Student Id|Amount Payment|Payment Date");
+            for(StudentPayment s:studentPayments){
+                System.out.println(s.getPaymentId()+"|"+s.getStudentId()+"|"+s.getPaymentAmount()+"|"+s.getPaymentDate());
+            }
+            System.out.println("================================================================");
+        }
     }
 
     public void saveToFile(){
@@ -72,5 +124,4 @@ public class StudentPaymentList {
             return null;
         }
     }
-
 }
