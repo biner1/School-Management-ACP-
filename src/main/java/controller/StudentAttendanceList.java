@@ -32,10 +32,26 @@ public class StudentAttendanceList {
 
     }
 
-    public void addExam(StudentAttendance attendance){
+
+    public boolean deleteStudentAttendance(int id){
         readFromFile();
-        studentAttendances.add(attendance);
+        int ind = findAttendance(id);
+        if (ind == -1){
+            System.out.println("there is no Grade with the name: "+id);
+            return false;
+        }
+        studentAttendances.remove(ind);
+        System.out.println("Grade: "+id+" was removed");
         saveToFile();
+        return true;
+    }
+
+    public int findAttendance(int id){
+        for(int i=0;i<studentAttendances.size();i++){
+            StudentAttendance studentAttendance = studentAttendances.get(i);
+            if (studentAttendance.getStudentId() == id){ return i;}
+        }
+        return -1;
     }
 
 

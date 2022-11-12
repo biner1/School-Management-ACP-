@@ -44,10 +44,10 @@ public class TeacherView {
         int choice = -1;
         while(choice !=99){
             System.out.println("_______Student Operations________");
-            System.out.println("1.Add exam\n2.print number of Students\n3.print exams \n0.back to main");
+            System.out.println("1.Add exam\n2.print number of Students\n3.print exams\n4.add Student Attendance \n5.delete student attendance \n6.add grade exam\n7.delete exam \n0.back to main");
             choice = scn.nextInt();
             if (choice == 1){
-//                addExam();
+                addExam();
             }else if (choice ==2){
                 System.out.println("the number of students is: "+studentList.getNumberOfStudents());
             }else if (choice==3){
@@ -55,7 +55,11 @@ public class TeacherView {
             }else if (choice==4){
                 addStudentAttendance();
             }else if (choice==5){
-//                gradeExam();
+                deleteStudentAttendance();
+            }else if (choice==6){
+                gradeExam();
+            }else if (choice==7){
+                deleteExam();
             }else if (choice ==0){ break;}
         }// end of while
     }
@@ -82,6 +86,68 @@ public class TeacherView {
         }catch(Exception e){
             System.out.println("invalid inputs");
         }
+    }
+
+    public void addExam(){
+
+        Scanner sc = new Scanner(System.in);
+        int subjectId;
+        String  examDesc, date;
+
+        try {
+            System.out.println("Enter SubjectId");
+            subjectId = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Enter Exam name");
+            examDesc = sc.nextLine();
+            System.out.println("Enter date");
+            date = sc.nextLine();
+            int id = studentList.getMaxId()+1;
+            Exam exam = new Exam(id, subjectId,examDesc, date);
+            examList.addExam(exam);
+            System.out.println("subject:"+examDesc +"date: "+date);
+            sc.close();
+        }catch(Exception e){
+            System.out.println("invalid inputs");
+        }
+    }
+
+    public void gradeExam(){
+
+        Scanner sc = new Scanner(System.in);
+        int studentId, mark, examId;
+
+        try {
+            System.out.println("Enter studentId");
+            studentId = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Enter mark");
+            mark = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Enter examId");
+            examId = sc.nextInt();
+            int id = studentList.getMaxId()+1;
+            ExamGrade examGrade = new ExamGrade(id, studentId,mark, examId);
+            examGradeList.addExamGrade(examGrade);
+            System.out.println("studentId:"+studentId +"mark: "+mark+"examId:"+examId);
+            sc.close();
+        }catch(Exception e){
+            System.out.println("invalid inputs");
+        }
+    }
+
+    public void deleteExam(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Exam name to remove");
+        String examName = sc.nextLine();
+        examList.deleteGrade(examName);
+    }
+
+    public void deleteStudentAttendance(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Student id to remove");
+        int studentAttendanceId = sc.nextInt();
+        studentAttendanceList.deleteStudentAttendance(studentAttendanceId);
     }
 
 }
