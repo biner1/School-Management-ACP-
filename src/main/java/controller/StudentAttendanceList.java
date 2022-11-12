@@ -2,9 +2,12 @@ package main.java.controller;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import main.java.model.Exam;
+import main.java.model.Student;
 import main.java.model.StudentAttendance;
 
 public class StudentAttendanceList {
@@ -28,6 +31,29 @@ public class StudentAttendanceList {
         studentAttendances.add(new StudentAttendance(12, 3, "16-10-2022", "absent"));
 
     }
+
+
+    public boolean deleteStudentAttendance(int id){
+        readFromFile();
+        int ind = findAttendance(id);
+        if (ind == -1){
+            System.out.println("there is no Grade with the name: "+id);
+            return false;
+        }
+        studentAttendances.remove(ind);
+        System.out.println("Grade: "+id+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findAttendance(int id){
+        for(int i=0;i<studentAttendances.size();i++){
+            StudentAttendance studentAttendance = studentAttendances.get(i);
+            if (studentAttendance.getStudentId() == id){ return i;}
+        }
+        return -1;
+    }
+
 
     public void addStudentAttendance(StudentAttendance studentAttendance) {
         readFromFile();
@@ -75,6 +101,28 @@ public class StudentAttendanceList {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("error with reading file");
         }
+    }
 
+    public void printStudents(){
+        readFromFile();
+        if(studentAttendances.isEmpty()){
+            System.out.println("there is no record of student");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|studentId|date|class|status");
+            for(StudentAttendance s:studentAttendances){
+                System.out.println(s.getId()+"|"+s.getStudentId()+"|"+s.getDate()+"|"+s.getClass()+"|"+s.getStatus());
+            }
+            System.out.println("================================================================");
+        }
+    }
+
+    public int getMaxId(){
+        readFromFile();
+        try{
+            return studentAttendances.stream().max(Comparator.comparing(StudentAttendance::getId)).orElseThrow().getId();
+        }catch(Exception e){
+            return 0;
+        }
     }
 }

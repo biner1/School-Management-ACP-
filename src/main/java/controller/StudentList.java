@@ -23,7 +23,6 @@ public class StudentList {
         students.add(new Student(7, "Dilshad", "male", "22-2-2022", "dlshad@dlshad.com", "erbil", "07502222228", 2));
     }
 
-
     public void addStudent(Student student){
         readFromFile();
         students.add(student);
@@ -91,29 +90,6 @@ public class StudentList {
         return students.size();
     }
 
-    public int getMaxId(){
-        try{
-            int id = students.stream().max(Comparator.comparing(Student::getId)).get().getId();
-            return id;
-        }catch(Exception e){
-            return 0;
-        }
-    }
-
-    public void printStudents(){
-        readFromFile();
-        if(students.isEmpty()){
-            System.out.println("there is no record of student");
-        }else{
-            System.out.println("---------------------------------------------------------------\n" +
-                    "id|name|birthdate|address|email|phone");
-            for(Student s:students){
-                System.out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getAddress()+"|"+s.getEmail()+"|"+s.getPhone());
-            }
-            System.out.println("=================================================================");
-        }
-    }
-
     public void saveToFile(){
         try {
             FileOutputStream fos = new FileOutputStream("src/main/java/datafile/students.txt");
@@ -137,6 +113,29 @@ public class StudentList {
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
+        }
+    }
+
+    public void printStudents(){
+        readFromFile();
+        if(students.isEmpty()){
+            System.out.println("there is no record of student");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|name|birthdate|email|address");
+            for(Student s:students){
+                System.out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getEmail()+"|"+s.getAddress());
+            }
+            System.out.println("================================================================");
+        }
+    }
+
+    public int getMaxId(){
+        readFromFile();
+        try{
+            return students.stream().max(Comparator.comparing(Student::getId)).orElseThrow().getId();
+        }catch(Exception e){
+            return 0;
         }
     }
 

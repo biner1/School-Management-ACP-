@@ -33,6 +33,7 @@ public class GradeList {
         saveToFile();
     }
 
+
     public boolean deleteGrade(String name){
         readFromFile();
         int ind = findGrade(name);
@@ -54,20 +55,19 @@ public class GradeList {
         return -1;
     }
 
-
     public ArrayList<Grade> getGradeList(){
         readFromFile();
         return grades;
     }
 
-    public ArrayList<Grade> getGradesByGradeYear(int year){
+    public ArrayList<Grade> getStudentByGradeYear(int year){
         readFromFile();
         return grades.stream().filter(s -> s.getGradeYear() ==(year)).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public  ArrayList<Grade> getGradesByName(String name){
+    public  ArrayList<Grade> getStudentByUsername(String username){
         readFromFile();
-        return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+        return grades.stream().filter(s -> s.getGradeName().toLowerCase().equals(username.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int getGradeByNameYear(String name, int year) {

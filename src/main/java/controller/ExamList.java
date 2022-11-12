@@ -1,9 +1,11 @@
 package main.java.controller;
 
 import main.java.model.Exam;
+import main.java.model.Staff;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class ExamList{
@@ -26,6 +28,28 @@ public class ExamList{
         exams.add(exam);
         saveToFile();
     }
+
+    public boolean deleteGrade(String name){
+        readFromFile();
+        int ind = findExam(name);
+        if (ind == -1){
+            System.out.println("there is no Grade with the name: "+name);
+            return false;
+        }
+        exams.remove(ind);
+        System.out.println("Grade: "+name+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findExam(String name){
+        for(int i=0;i<exams.size();i++){
+            Exam exam = exams.get(i);
+            if (exam.getExamDesc().equals(name)){ return i;}
+        }
+        return -1;
+    }
+
 
     public ArrayList<Exam> getExams(){
         return exams;
@@ -78,5 +102,28 @@ public class ExamList{
         }
     }
 
+    public int getMaxId(){
+        readFromFile();
+        try{
+            int id = exams.stream().max(Comparator.comparing(Exam::getExamId)).orElseThrow().getExamId();
+            return id;
+        }catch(Exception e){
+            return 0;
+        }
+    }
+
+    public void printExam(){
+        readFromFile();
+        if(exams.isEmpty()){
+            System.out.println("there is no record of staff");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|name|birthdate|role|email|salary");
+            for(Exam s:exams){
+                System.out.println(s.getExamId()+"|"+s.getExamDesc()+"|"+s.getClass()+"|"+s.getSubjectId()+"|"+s.getDate());
+            }
+            System.out.println("================================================================");
+        }
+    }
 
 }
