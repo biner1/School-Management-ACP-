@@ -82,17 +82,17 @@ public class StudentPaymentList {
         }
     }
 
-    public void printStudentPayments(){
+    public void printStudentPayments(PrintWriter out){
         readFromFile();
         if(studentPayments.isEmpty()){
-            System.out.println("there is no record of staff");
+            out.println("there is no record of staff");
         }else{
-            System.out.println("---------------------------------------------------------------\n" +
+            out.println("---------------------------------------------------------------\n" +
                     "payment Id|Student Id|Amount Payment|Payment Date");
             for(StudentPayment s:studentPayments){
-                System.out.println(s.getPaymentId()+"|"+s.getStudentId()+"|"+s.getPaymentAmount()+"|"+s.getPaymentDate());
+                out.println(s.getPaymentId()+"|"+s.getStudentId()+"|"+s.getPaymentAmount()+"|"+s.getPaymentDate());
             }
-            System.out.println("================================================================");
+            out.println("================================================================");
         }
     }
 
