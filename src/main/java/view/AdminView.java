@@ -8,6 +8,8 @@ import main.java.model.Student;
 import main.java.controller.GradeList;
 import main.java.model.Grade;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -20,28 +22,39 @@ public class AdminView {
     StudentList studentList = new StudentList();
     GradeList gradeList = new GradeList();
 
+    PrintWriter out = null;
+    BufferedReader in = null;
+
     public AdminView(Staff admin){
         loggedInAdmin = admin;
     }
 
-    public void login(){
-        System.out.println("You are logged in as admin: "+loggedInAdmin.getUserName());
-        Scanner scn = new Scanner(System.in);
+    public void login(PrintWriter out, BufferedReader in){
+        this.out = out;
+        this.in=in;
+
+        out.println("You are logged in as admin: "+loggedInAdmin.getUserName());
 
         int choice;
         while(true){
-            System.out.println("__________enter admin choice___________");
-            System.out.println("1.Staff operations\n2.Student operations\n3.Grades operations\n0.exit the program");
-            choice = scn.nextInt();
-            if (choice == 1){
-                staffOps();
-            }else if (choice ==2){
-                studentOps();
-            } else if (choice == 3) {
-                gradeOps();
-            }else if (choice ==0){ break;}
-            else {
-                System.out.println("Enter a valid choice");
+            out.println("__________enter admin choice___________");
+            out.println("\n1.Staff operations\n2.Student operations\n3.Grades operations\n0.exit the program");
+            out.println("@r#");
+            try {
+                choice = Integer.parseInt(in.readLine());
+
+                if (choice == 1){
+                    staffOps();
+                }else if (choice ==2){
+                    studentOps();
+                } else if (choice == 3) {
+                    gradeOps();
+                }else if (choice ==0){ break;}
+                else {
+                    out.println("Enter a valid choice");
+                }
+            }catch (Exception e){
+                out.println("invalid input");
             }
         }// end of while
     }
@@ -49,91 +62,106 @@ public class AdminView {
     //____________________________Choice types______________________
 
     public void staffOps(){
-        Scanner scn = new Scanner(System.in);
 
         int choice;
         while(true){
-            System.out.println("_______Staff Operations________");
-            System.out.println("""
+            out.println("\n_______Staff Operations________");
+            out.println("""
                     1.Add Staff
                     2.Print number of Staffs
                     3.Display all staff
                     4.Delete Staff
                     0.back to main""");
-            choice = scn.nextInt();
-            if (choice == 1){
-                addStaff();
-            }else if (choice ==2){
-                System.out.println("the number of staffs is: "+staffList.getNumberOfStaffs());
-            }else if (choice==3){
-                staffList.printStaffs();
-            }else if(choice == 4){
-                deleteStaff();
-            }else if (choice ==0){break;}
-            else {
-                System.out.println("Enter a valid choice");
+            out.println("@r#");
+            try {
+                choice = Integer.parseInt(in.readLine());
+                if (choice == 1) {
+                    addStaff();
+                } else if (choice == 2) {
+                    out.println("the number of staffs is: " + staffList.getNumberOfStaffs());
+                } else if (choice == 3) {
+                    staffList.printStaffs();
+                } else if (choice == 4) {
+                    deleteStaff();
+                } else if (choice == 0) {
+                    break;
+                } else {
+                    out.println("Enter a valid choice");
+                }
+            }catch (Exception e){
+                out.println("invalid choice");
             }
         }// end of while
     }
 
     public void studentOps(){
-        Scanner scn = new Scanner(System.in);
 
         int choice;
         while(true){
-            System.out.println("_______Student Operations________");
-            System.out.println("""
+            out.println("\n_______Student Operations________");
+            out.println("""
                     1.Add Student
                     2.print number of Students
                     3.Display all students
                     4.Display students by name
                     5.Delete student
                     0.back to main""");
-            choice = scn.nextInt();
-            if (choice == 1){
-                addStudent();
-            }else if (choice ==2){
-                System.out.println("the number of students is: "+studentList.getNumberOfStudents());
-            }else if(choice == 3){
-                printStudents(studentList.getStudents());
-            }else if(choice == 4){
-                DisplayStudentsByName();
-            }else if(choice == 5){
-                deleteStudent();
-            } else if (choice ==0){ break;}
-            else {
-                System.out.println("Enter a valid choice");
+            out.println("@r#");
+            try {
+                choice = Integer.parseInt(in.readLine());
+                if (choice == 1) {
+                    addStudent();
+                } else if (choice == 2) {
+                    out.println("the number of students is: " + studentList.getNumberOfStudents());
+                } else if (choice == 3) {
+                    printStudents(studentList.getStudents());
+                } else if (choice == 4) {
+                    DisplayStudentsByName();
+                } else if (choice == 5) {
+                    deleteStudent();
+                } else if (choice == 0) {
+                    break;
+                } else {
+                    out.println("Enter a valid choice");
+                }
+            }catch (Exception e){
+                out.println("invalid choice");
             }
         }// end of while
     }
 
     public void gradeOps(){
-        Scanner scn = new Scanner(System.in);
 
         int choice;
         while(true){
-            System.out.println("_______Grade Operations________");
-            System.out.println("""
+            out.println("\n_______Grade Operations________");
+            out.println("""
                     1.Add Grade
                     2.print number of Grades
                     3.Display all Grades
                     4.Display all students of a grade
                     5.Delete Grade
                     0.back to main""");
-            choice = scn.nextInt();
-            if (choice == 1){
-                addGrade();
-            }else if (choice ==2){
-                System.out.println("the number of grades are: "+gradeList.getNumberOfGrades());
-            }else if(choice == 3){
-                gradeList.printGrades();
-            }else if(choice == 4){
-                printGradeStudents();
-            } else if (choice == 5) {
-                deleteGrade();
-            } else if (choice ==0){ break;}
-            else {
-                System.out.println("Enter a valid choice");
+            out.println("@r#");
+            try {
+                choice = Integer.parseInt(in.readLine());
+                if (choice == 1) {
+                    addGrade();
+                } else if (choice == 2) {
+                    out.println("the number of grades are: " + gradeList.getNumberOfGrades());
+                } else if (choice == 3) {
+                    gradeList.printGrades();
+                } else if (choice == 4) {
+                    printGradeStudents();
+                } else if (choice == 5) {
+                    deleteGrade();
+                } else if (choice == 0) {
+                    break;
+                } else {
+                    out.println("Enter a valid choice");
+                }
+            }catch (Exception e){
+                out.println("invalid input");
             }
         }// end of while
     }

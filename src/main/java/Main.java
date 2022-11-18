@@ -1,16 +1,30 @@
 package main.java;
 
+import main.java.controller.ServerSideSocket;
 import main.java.model.*;
 import main.java.controller.StudentList;
 import main.java.view.LoginView;
 
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
-        LoginView start= new LoginView();
-        start.login();
+
+        try {
+            ServerSideSocket s = new ServerSideSocket();
+            s.startConnection();
+        } catch (NullPointerException e){
+            System.err.println("socket not created");
+        }
+
+
+
+//        LoginView start= new LoginView();
+//        start.login();
 
 //        Staff staff1 = new Staff(1, "biner", "male", "22-2-2222", "biner@biner.com", "halabja", "07501111111", StaffRole.TEACHER, 9000000, "password");
 //        Student stu1 = new Student(1, "hama", "male", "22-2-2222", "hama@hama.com", "halabja", "07502222222", 1);

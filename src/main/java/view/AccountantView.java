@@ -6,6 +6,8 @@ import main.java.model.Staff;
 import main.java.model.StaffPayment;
 import main.java.model.StudentPayment;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +21,12 @@ public class AccountantView {
         loggedInAccountant = accountant;
     }
 
-    public void login() {
+    PrintWriter out = null;
+    BufferedReader in = null;
+    public void login(PrintWriter out, BufferedReader in) {
+        this.out = out;
+        this.in=in;
+
         System.out.println("successfully logged in as accountant: " + loggedInAccountant.getUserName());
         Scanner scn = new Scanner(System.in);
 

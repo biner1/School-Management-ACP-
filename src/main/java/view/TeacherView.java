@@ -9,6 +9,8 @@ import main.java.model.ExamGrade;
 import main.java.model.Staff;
 import main.java.model.StudentAttendance;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class TeacherView {
@@ -19,11 +21,16 @@ public class TeacherView {
     StudentAttendanceList studentAttendanceList = new StudentAttendanceList();
     ExamGradeList examGradeList = new ExamGradeList();
 
+    PrintWriter out = null;
+    BufferedReader in = null;
     public TeacherView(Staff teacher){
         loggedInTeacher = teacher;
     }
 
-    public void login(){
+    public void login(PrintWriter out, BufferedReader in){
+        this.out = out;
+        this.in=in;
+
         System.out.println("successfully logged in as teacher: "+loggedInTeacher.getUserName());
         Scanner scn = new Scanner(System.in);
 
