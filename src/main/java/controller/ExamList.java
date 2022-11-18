@@ -115,12 +115,12 @@ public class ExamList{
     public void printExam(){
         readFromFile();
         if(exams.isEmpty()){
-            System.out.println("there is no record of staff");
+            System.out.println("there is no record of exams");
         }else{
             System.out.println("---------------------------------------------------------------\n" +
-                    "id|name|birthdate|role|email|salary");
+                    "id|desc|birthdate|subject id|email|date");
             for(Exam s:exams){
-                System.out.println(s.getExamId()+"|"+s.getExamDesc()+"|"+s.getClass()+"|"+s.getSubjectId()+"|"+s.getDate());
+                System.out.println(s.getExamId()+"|"+s.getExamDesc()+"|"+"|"+s.getSubjectId()+"|"+s.getDate());
             }
             System.out.println("================================================================");
         }
