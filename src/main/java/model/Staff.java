@@ -24,8 +24,8 @@ public class Staff extends Person{
         this.salary = salary;
     }
 
-    public StaffRole getRole() {
-        return role;
+    public String getRole() {
+        return role.name();
     }
 
     public void setRole(StaffRole role) {

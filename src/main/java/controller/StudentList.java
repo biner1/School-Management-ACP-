@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.io.*;
@@ -22,11 +23,31 @@ public class StudentList {
         students.add(new Student(7, "Dilshad", "male", "22-2-2022", "dlshad@dlshad.com", "erbil", "07502222228", 2));
     }
 
-
     public void addStudent(Student student){
         readFromFile();
         students.add(student);
         saveToFile();
+    }
+
+    public boolean deleteStudent(String name){
+        readFromFile();
+        int ind = findStudent(name);
+        if (ind == -1){
+            System.out.println("there is no student with the name: "+name);
+            return false;
+        }
+        students.remove(ind);
+        System.out.println("staff: "+name+" was removed");
+        saveToFile();
+        return true;
+    }
+
+    public int findStudent(String name){
+        for(int i=0;i<students.size();i++){
+            Student student = students.get(i);
+            if (student.getUserName().equals(name)){ return i;}
+        }
+        return -1;
     }
 
     public ArrayList<Student> getStudents(){
@@ -92,6 +113,29 @@ public class StudentList {
         }
         catch(ClassNotFoundException e){
             System.out.println("ClassNotFoundException");
+        }
+    }
+
+    public void printStudents(){
+        readFromFile();
+        if(students.isEmpty()){
+            System.out.println("there is no record of student");
+        }else{
+            System.out.println("---------------------------------------------------------------\n" +
+                    "id|name|birthdate|email|address");
+            for(Student s:students){
+                System.out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getEmail()+"|"+s.getAddress());
+            }
+            System.out.println("================================================================");
+        }
+    }
+
+    public int getMaxId(){
+        readFromFile();
+        try{
+            return students.stream().max(Comparator.comparing(Student::getId)).orElseThrow().getId();
+        }catch(Exception e){
+            return 0;
         }
     }
 
