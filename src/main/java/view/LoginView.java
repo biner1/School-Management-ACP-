@@ -16,15 +16,16 @@ public class LoginView {
         // login as who
         out.println("______________Login view__________________");
 
+        String username;
+        String password;
         Staff staff = null;
-        while (staff == null) {
+        while (true) {
             out.println("Enter UserName");
             out.println("@r#");
-            String username = in.readLine();
-
+            username = in.readLine();
             out.println("Enter Password");
             out.println("@r#");
-            String password = in.readLine();
+            password = in.readLine();
 
             staff = staffList.getStaffUsernamePassword(username, password);
             if (staff != null) {

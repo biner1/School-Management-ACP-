@@ -107,17 +107,17 @@ public class StaffList {
         }
     }
 
-    public void printStaffs(){
+    public void printStaffs(PrintWriter out){
         readFromFile();
         if(staffs.isEmpty()){
-            System.out.println("there is no record of staff");
+            out.println("there is no record of staff");
         }else{
             System.out.println("---------------------------------------------------------------\n" +
                     "id|name|birthdate|role|email|salary");
             for(Staff s:staffs){
-                System.out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getRole()+"|"+s.getEmail()+s.getSalary());
+                out.println(s.getId()+"|"+s.getUserName()+"|"+s.getBirthDate()+"|"+s.getRole()+"|"+s.getEmail()+s.getSalary());
             }
-            System.out.println("================================================================");
+            out.println("================================================================");
         }
     }
 

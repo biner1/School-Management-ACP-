@@ -19,6 +19,8 @@ public class Main {
             s.startConnection();
         } catch (NullPointerException e){
             System.err.println("socket not created");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 

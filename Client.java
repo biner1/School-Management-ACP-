@@ -8,13 +8,13 @@ import java.io.PrintWriter;
 public class Client {
 
     public static void main(String[] args) throws IOException {
-        Socket echoSocket = null;
+        Socket serverConnection = null;
         PrintWriter out = null;
         BufferedReader in = null;
 
         try {
-            echoSocket = new Socket("127.0.0.1", 6789);
-            System.out.println("connected to: "+echoSocket);
+            serverConnection = new Socket("127.0.0.1", 6789);
+            System.out.println("connected to: "+serverConnection);
         } catch (UnknownHostException e) {
             System.err.println("Don't know host: yohohoho.");
             System.exit(1);
@@ -23,28 +23,34 @@ public class Client {
             System.exit(1);
         }
 
-        out = new PrintWriter(echoSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+        out = new PrintWriter(serverConnection.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        String userInput;
+        String userInput,toServer;
         System.out.println("connected");
 
         while ((userInput = in.readLine()) != null) {
 
 		             boolean isServerAskForInput = userInput.equals("@r#");
+
 		                 if (isServerAskForInput) {    // 1 if send then is ask for input from client
 		                      System.out.print("you> ");
-		                      out.println(stdIn.readLine());
+		                      toServer = stdIn.readLine();
+		                      if(toServer.equals("exit()")){
+								  out.close();
+								          in.close();
+								          stdIn.close();
+        								serverConnection.close();
+								  System.exit(1);
+								  }
+		                      out.println(toServer);
 		                  }
 		                  if(!isServerAskForInput)
 		                  	System.out.println(":: " + userInput);
               }
 
 
-        out.close();
-        in.close();
-        stdIn.close();
-        echoSocket.close();
+
     }
 }

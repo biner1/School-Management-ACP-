@@ -14,7 +14,6 @@ public class ExamList{
     public ExamList(){
         exams = new ArrayList<>();
 
-        //TODO delete examId
         exams.add(new Exam(1, 1 , "informatics", "1-2-2022"));
         exams.add(new Exam(2, 2 , "Software", "2-2-2022"));
         exams.add(new Exam(3, 3 , "Math", "3-2-2022"));
@@ -90,10 +89,10 @@ public class ExamList{
 
     public void readFromFile(){
         try {
-            FileInputStream zed = new FileInputStream("src/main/java/datafile/Exams.txt");
-            ObjectInputStream zee = new ObjectInputStream(zed);
-            exams = (ArrayList<Exam>) zee.readObject();
-            zee.close();
+            FileInputStream fis = new FileInputStream("src/main/java/datafile/Exams.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            exams = (ArrayList<Exam>) ois.readObject();
+            ois.close();
         }catch (IOException e){
             System.out.println("error with reading file");
         }
@@ -112,17 +111,17 @@ public class ExamList{
         }
     }
 
-    public void printExam(){
+    public void printExam(PrintWriter out){
         readFromFile();
         if(exams.isEmpty()){
-            System.out.println("there is no record of exams");
+            out.println("there is no record of exams");
         }else{
-            System.out.println("---------------------------------------------------------------\n" +
+            out.println("---------------------------------------------------------------\n" +
                     "id|desc|birthdate|subject id|email|date");
             for(Exam s:exams){
-                System.out.println(s.getExamId()+"|"+s.getExamDesc()+"|"+"|"+s.getSubjectId()+"|"+s.getDate());
+                out.println(s.getExamId()+"|"+s.getExamDesc()+"|"+"|"+s.getSubjectId()+"|"+s.getDate());
             }
-            System.out.println("================================================================");
+            out.println("================================================================");
         }
     }
 

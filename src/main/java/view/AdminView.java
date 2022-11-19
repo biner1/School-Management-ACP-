@@ -81,7 +81,7 @@ public class AdminView {
                 } else if (choice == 2) {
                     out.println("the number of staffs is: " + staffList.getNumberOfStaffs());
                 } else if (choice == 3) {
-                    staffList.printStaffs();
+                    staffList.printStaffs(out);
                 } else if (choice == 4) {
                     deleteStaff();
                 } else if (choice == 0) {
@@ -200,7 +200,6 @@ public class AdminView {
             out.println("Enter Salary");
             out.println("@r#");
             int salary = Integer.parseInt(in.readLine());
-            in.readLine();
             out.println("Enter Password");
             out.println("@r#");
             password = in.readLine();

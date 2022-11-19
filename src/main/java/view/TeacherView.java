@@ -58,7 +58,7 @@ public class TeacherView {
             }else if (choice ==2){
                 out.println("the number of students is: "+studentList.getNumberOfStudents());
             }else if (choice==3){
-                examList.printExam();
+                examList.printExam(out);
             }else if (choice==4){
                 addStudentAttendance();
             }else if (choice==5){
