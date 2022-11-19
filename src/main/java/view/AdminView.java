@@ -7,12 +7,11 @@ import main.java.controller.StudentList;
 import main.java.model.Student;
 import main.java.controller.GradeList;
 import main.java.model.Grade;
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class AdminView {
@@ -39,8 +38,9 @@ public class AdminView {
         while(true){
             out.println("__________enter admin choice___________");
             out.println("\n1.Staff operations\n2.Student operations\n3.Grades operations\n0.exit the program");
-            out.println("@r#");
+
             try {
+                out.println("@r#");
                 choice = Integer.parseInt(in.readLine());
 
                 if (choice == 1){
@@ -72,8 +72,9 @@ public class AdminView {
                     3.Display all staff
                     4.Delete Staff
                     0.back to main""");
-            out.println("@r#");
+
             try {
+                out.println("@r#");
                 choice = Integer.parseInt(in.readLine());
                 if (choice == 1) {
                     addStaff();
@@ -106,8 +107,9 @@ public class AdminView {
                     4.Display students by name
                     5.Delete student
                     0.back to main""");
-            out.println("@r#");
+
             try {
+                out.println("@r#");
                 choice = Integer.parseInt(in.readLine());
                 if (choice == 1) {
                     addStudent();
@@ -144,6 +146,7 @@ public class AdminView {
                     0.back to main""");
             out.println("@r#");
             try {
+                out.println("@r#");
                 choice = Integer.parseInt(in.readLine());
                 if (choice == 1) {
                     addGrade();
@@ -169,42 +172,56 @@ public class AdminView {
 
     // ___________________________Staff Operations_________________________________
     public void addStaff(){
-        Scanner sc = new Scanner(System.in);
+
         String username, gender, date, email, address, phone, password;
 
         try {
-            System.out.println("Enter Username");
-            username = sc.nextLine();
-            System.out.println("Enter Gender");
-            gender = sc.nextLine();
-            System.out.println("Enter Birthdate");
-            date = sc.nextLine();
-            System.out.println("Enter Email");
-            email = sc.nextLine();
-            System.out.println("Enter Address");
-            address = sc.nextLine();
-            System.out.println("Enter Phone");
-            phone = sc.nextLine();
-            System.out.println("Enter Role");
-            StaffRole role = StaffRole.valueOf(sc.nextLine().toUpperCase());
-            System.out.println("Enter Salary");
-            int salary = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter Password");
-            password = sc.nextLine();
+            out.println("Enter Username");
+            out.println("@r#");
+            username = in.readLine();
+            out.println("Enter Gender");
+            out.println("@r#");
+            gender = in.readLine();
+            out.println("Enter Birthdate");
+            out.println("@r#");
+            date = in.readLine();
+            out.println("Enter Email");
+            out.println("@r#");
+            email = in.readLine();
+            out.println("Enter Address");
+            out.println("@r#");
+            address = in.readLine();
+            out.println("Enter Phone");
+            out.println("@r#");
+            phone = in.readLine();
+            out.println("Enter Role");
+            out.println("@r#");
+            StaffRole role = StaffRole.valueOf(in.readLine().toUpperCase());
+            out.println("Enter Salary");
+            out.println("@r#");
+            int salary = Integer.parseInt(in.readLine());
+            in.readLine();
+            out.println("Enter Password");
+            out.println("@r#");
+            password = in.readLine();
             int id = staffList.getMaxId()+1;
-            Staff staff = new Staff(id, username, gender, date, email, address, phone, role, salary, password);
+            Staff staff = new Staff(id, username, gender, date, email ,address, phone, role, salary, password);
             staffList.addStaff(staff);
-            System.out.println(username +"added as: "+role);
+            out.println(username +"added as: "+role);
         }catch(Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }// end of addStaff()
 
     public void deleteStaff(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Staff name to remove");
-        String username = sc.nextLine();
+
+        out.println("Enter Staff name to remove");
+        String username = null;
+        try {
+            username = in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         staffList.deleteStaff(username);
     }
 
@@ -212,43 +229,57 @@ public class AdminView {
     //____________________________________Student operations_________________________
     public void addStudent(){
 
-        Scanner sc = new Scanner(System.in);
+
         String username, gender, date, email, address, phone, password;
 
         try {
-            System.out.println("Enter Username");
-            username = sc.nextLine();
-            System.out.println("Enter Gender");
-            gender = sc.nextLine();
-            System.out.println("Enter Birthdate");
-            date = sc.nextLine();
-            System.out.println("Enter Email");
-            email = sc.nextLine();
-            System.out.println("Enter Address");
-            address = sc.nextLine();
-            System.out.println("Enter Phone");
-            phone = sc.nextLine();
-            System.out.println("Enter gradeId");
-            int gradeId = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter Password");
-            password = sc.nextLine();
+            out.println("Enter Username");
+            out.println("@r#");
+            username = in.readLine();
+            out.println("Enter Gender");
+            out.println("@r#");
+            gender = in.readLine();
+            out.println("Enter Birthdate");
+            out.println("@r#");
+            date = in.readLine();
+            out.println("Enter Email");
+            out.println("@r#");
+            email = in.readLine();
+            out.println("Enter Address");
+            out.println("@r#");
+            address = in.readLine();
+            out.println("Enter Phone");
+            out.println("@r#");
+            phone = in.readLine();
+            out.println("Enter gradeId");
+            out.println("@r#");
+            int gradeId = Integer.parseInt(in.readLine());
+            in.readLine();
+            out.println("Enter Password");
+            out.println("@r#");
+            password = in.readLine();
             int id = studentList.getMaxId()+1;
             Student student = new Student(id, username, gender, date, email, address, phone, gradeId, password);
             studentList.addStudent(student);
-            System.out.println("student "+username +" added to gradeId of "+gradeId);
+            out.println("student "+username +" added to gradeId of "+gradeId);
         }catch(Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }// end of addStudent()
 
     public void DisplayStudentsByName(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Student username");
-        String name = sc.nextLine();
+
+        out.println("Enter Student username");
+        String name = null;
+        try {
+            out.println("@r#");
+            name = in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         ArrayList<Student> stList =  studentList.getStudentByUsername(name);
         if(stList.isEmpty()){
-            System.out.println("There is no students with that username");
+            out.println("There is no students with that username");
         }else {
             printStudents(stList);
         }
@@ -256,77 +287,108 @@ public class AdminView {
 
     public void printStudents(ArrayList<Student> stList){
         // printing students with grade
-        System.out.println("name|gender|phone|address|grade");
+        out.println("name|gender|phone|address|grade");
         stList.forEach(s-> {
             Optional<Grade> o=(gradeList.getGradeList().stream().filter(a->a.getGradeId()==s.getGradeId()).findAny());
             if(o.isPresent()){
                 Grade r = o.get();
                 if(s.getGradeId()==r.getGradeId()){
-                    System.out.println(s.getUserName()+"|"+s.getGender()+"|"+s.getPhone()+"|"+s.getAddress()+"|"+r.getGradeName());
+                    out.println(s.getUserName()+"|"+s.getGender()+"|"+s.getPhone()+"|"+s.getAddress()+"|"+r.getGradeName());
                 }
             }else {
-                System.out.println("students does not exist");
+                out.println("students does not exist");
             }
 
         }); // end stList.forEach()
     }// end of printStudents(ArrayList<Student> stList)
 
     public void deleteStudent(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter student name to remove");
-        String username = sc.nextLine();
+
+        out.println("Enter student name to remove");
+        out.println("@r#");
+        String username = null;
+        try {
+            out.println("@r#");
+            username = in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         studentList.deleteStudent(username);
     }
 
     //____________________________________Grades operations__________________________
 
     public void addGrade(){
-        Scanner sc = new Scanner(System.in);
+
         int id,gradeYear;
         String gradeName;
 
         try {
-            System.out.println("Enter gradeName");
-            gradeName = sc.nextLine();
-            System.out.println("Enter gradeYear");
-            gradeYear = sc.nextInt();
-            sc.nextLine();
+            out.println("Enter gradeName");
+            out.println("@r#");
+            gradeName = in.readLine();
+            out.println("Enter gradeYear");
+            out.println("@r#");
+            gradeYear = Integer.parseInt(in.readLine());
+            in.readLine();
             id=gradeList.getMaxId()+1;
             Grade grade = new Grade(id,gradeName,gradeYear);
             gradeList.addGrade(grade);
-            System.out.println("The Grade "+gradeName+" was added for year "+gradeYear);
+            out.println("The Grade "+gradeName+" was added for year "+gradeYear);
         }catch (Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }// end of addGrade()
 
     public void deleteGrade(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Grade name to remove");
-        String gradeName = sc.nextLine();
+
+        out.println("Enter Grade name to remove");
+
+        String gradeName = null;
+        try {
+            out.println("@r#");
+            gradeName = in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         gradeList.deleteGrade(gradeName);
     }//deleteGrade()
 
     public void printGradeStudents(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Grade Name");
-        String name = sc.nextLine();
-        System.out.println("Enter Grade Year");
-        int year = sc.nextInt();
-        sc.nextLine();
+
+        out.println("Enter Grade Name");
+        String name = null;
+        try {
+            name = in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        out.println("Enter Grade Year");
+        out.println("@r#");
+        int year = 0;
+        try {
+            year = Integer.parseInt(in.readLine());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            in.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         int gradeId = gradeList.getGradeByNameYear(name,year);
         if(gradeId == -1){
-            System.out.println("There is no Grade with the name: "+name+" and year "+year);
+            out.println("There is no Grade with the name: "+name+" and year "+year);
         }
         else {
             ArrayList<Student> stList;
             stList = studentList.getStudents().stream().filter(s -> s.getGradeId() == gradeId).collect(Collectors.toCollection(ArrayList::new));
             if (!stList.isEmpty()) {
-                System.out.println("name|email|gender\n------------------------------------");
-                stList.forEach(s -> System.out.println(s.getUserName()+"|"+s.getEmail()+"|"+s.getGender()));
-                System.out.println("=================================================");
+                out.println("name|email|gender\n------------------------------------");
+                stList.forEach(s -> out.println(s.getUserName()+"|"+s.getEmail()+"|"+s.getGender()));
+                out.println("=================================================");
             } else {
-                System.out.println("there is no student in the grade: " + name);
+                out.println("there is no student in the grade: " + name);
             }
         }
     }//printGradeStudents()
