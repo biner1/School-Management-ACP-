@@ -144,7 +144,6 @@ public class AdminView {
                     4.Display all students of a grade
                     5.Delete Grade
                     0.back to main""");
-            out.println("@r#");
             try {
                 out.println("@r#");
                 choice = Integer.parseInt(in.readLine());
@@ -153,7 +152,7 @@ public class AdminView {
                 } else if (choice == 2) {
                     out.println("the number of grades are: " + gradeList.getNumberOfGrades());
                 } else if (choice == 3) {
-                    gradeList.printGrades();
+                    gradeList.printGrades(out);
                 } else if (choice == 4) {
                     printGradeStudents();
                 } else if (choice == 5) {
@@ -217,6 +216,7 @@ public class AdminView {
         out.println("Enter Staff name to remove");
         String username = null;
         try {
+            out.println("@r#");
             username = in.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -253,7 +253,6 @@ public class AdminView {
             out.println("Enter gradeId");
             out.println("@r#");
             int gradeId = Integer.parseInt(in.readLine());
-            in.readLine();
             out.println("Enter Password");
             out.println("@r#");
             password = in.readLine();
@@ -329,7 +328,6 @@ public class AdminView {
             out.println("Enter gradeYear");
             out.println("@r#");
             gradeYear = Integer.parseInt(in.readLine());
-            in.readLine();
             id=gradeList.getMaxId()+1;
             Grade grade = new Grade(id,gradeName,gradeYear);
             gradeList.addGrade(grade);
@@ -358,23 +356,21 @@ public class AdminView {
         out.println("Enter Grade Name");
         String name = null;
         try {
+            out.println("@r#");
             name = in.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         out.println("Enter Grade Year");
-        out.println("@r#");
         int year = 0;
         try {
+            out.println("@r#");
             year = Integer.parseInt(in.readLine());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            in.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         int gradeId = gradeList.getGradeByNameYear(name,year);
         if(gradeId == -1){
             out.println("There is no Grade with the name: "+name+" and year "+year);

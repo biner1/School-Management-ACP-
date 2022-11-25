@@ -96,17 +96,17 @@ public class GradeList {
         }
     }
 
-    public void printGrades(){
+    public void printGrades(PrintWriter out){
         readFromFile();
         if(grades.isEmpty()){
-            System.out.println("there is no record of Grades");
+            out.println("there is no record of Grades");
         }else{
-            System.out.println("---------------------------------------------------------------\n" +
+            out.println("---------------------------------------------------------------\n" +
                     "id|name|year|");
             for(Grade g:grades){
-                System.out.println(g.getGradeId()+"|"+g.getGradeName()+"|"+g.getGradeYear());
+                out.println(g.getGradeId()+"|"+g.getGradeName()+"|"+g.getGradeYear());
             }
-            System.out.println("================================================================");
+            out.println("================================================================");
         }
     }
 
