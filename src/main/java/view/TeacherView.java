@@ -9,7 +9,9 @@ import main.java.model.ExamGrade;
 import main.java.model.Staff;
 import main.java.model.StudentAttendance;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class TeacherView {
 
@@ -19,39 +21,44 @@ public class TeacherView {
     StudentAttendanceList studentAttendanceList = new StudentAttendanceList();
     ExamGradeList examGradeList = new ExamGradeList();
 
+    PrintWriter out = null;
+    BufferedReader in = null;
     public TeacherView(Staff teacher){
         loggedInTeacher = teacher;
     }
 
-    public void login(){
-        System.out.println("successfully logged in as teacher: "+loggedInTeacher.getUserName());
-        Scanner scn = new Scanner(System.in);
+    public void login(PrintWriter out, BufferedReader in) throws IOException {
+        this.out = out;
+        this.in=in;
+
+        out.println("successfully logged in as teacher: "+loggedInTeacher.getUserName());
 
         int choice = -1;
         while(choice !=0){
-            System.out.println("__________enter teacher choice___________");
-            System.out.println("1.Student operations\n0.exit the program");
-            choice = scn.nextInt();
+            out.println("__________enter teacher choice___________");
+            out.println("1.Student operations\n0.exit the program");
+            out.println("@r#");
+            choice = Integer.parseInt(in.readLine());
             if (choice ==1){
                 studentOps();
             }
         }// end of while
     }
 
-    public void studentOps(){
-        Scanner scn = new Scanner(System.in);
+    public void studentOps() throws IOException {
 
         int choice = -1;
         while(choice !=99){
-            System.out.println("_______Student Operations________");
-            System.out.println("1.Add exam\n2.print number of Students\n3.print exams\n4.add Student Attendance \n5.delete student attendance \n6.add grade exam\n7.delete exam \n0.back to main");
-            choice = scn.nextInt();
+            out.println("_______Student Operations________");
+            out.println("1.Add exam\n2.print number of Students\n3.print exams\n4.add Student Attendance \n5.delete student attendance \n6.add grade exam\n7.delete exam \n0.back to main");
+            out.println("@r#");
+            choice = Integer.parseInt(in.readLine());
             if (choice == 1){
                 addExam();
             }else if (choice ==2){
-                System.out.println("the number of students is: "+studentList.getNumberOfStudents());
+                out.println("the number of students is: "+studentList.getNumberOfStudents());
             }else if (choice==3){
-                examList.printExam();
+                examList.printExam(out);
             }else if (choice==4){
                 addStudentAttendance();
             }else if (choice==5){
@@ -66,87 +73,88 @@ public class TeacherView {
 
     public void addStudentAttendance(){
 
-        Scanner sc = new Scanner(System.in);
         int studentId;
         String  date, status;
 
         try {
-            System.out.println("Enter StudentId");
-            studentId = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter date");
-            date = sc.nextLine();
-            System.out.println("Enter status");
-            status = sc.nextLine();
+            out.println("Enter StudentId");
+            out.println("@r#");
+            studentId = Integer.parseInt(in.readLine());
+            out.println("Enter date");
+            out.println("@r#");
+            date = in.readLine();
+            out.println("Enter status");
+            out.println("@r#");
+            status = in.readLine();
             int id = studentAttendanceList.getMaxId()+1;
             StudentAttendance studentAttendance = new StudentAttendance(id, studentId,status, date);
             studentAttendanceList.addStudentAttendance(studentAttendance);
-            System.out.println("StudentId: "+studentId +"Date: "+date+"Status: " +status);
-            sc.close();
+            out.println("StudentId: "+studentId +"Date: "+date+"Status: " +status);
         }catch(Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }
 
     public void addExam(){
 
-        Scanner sc = new Scanner(System.in);
         int subjectId;
         String  examDesc, date;
 
         try {
-            System.out.println("Enter SubjectId");
-            subjectId = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter Exam name");
-            examDesc = sc.nextLine();
-            System.out.println("Enter date");
-            date = sc.nextLine();
+            out.println("Enter SubjectId");
+            out.println("@r#");
+            subjectId = Integer.parseInt(in.readLine());
+            out.println("Enter Exam name");
+            out.println("@r#");
+            examDesc = in.readLine();
+            out.println("Enter date");
+            out.println("@r#");
+            date = in.readLine();
             int id = studentList.getMaxId()+1;
             Exam exam = new Exam(id, subjectId,examDesc, date);
             examList.addExam(exam);
-            System.out.println("subject:"+examDesc +"date: "+date);
-            sc.close();
+            out.println("subject:"+examDesc +"date: "+date);
         }catch(Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }
 
     public void gradeExam(){
 
-        Scanner sc = new Scanner(System.in);
         int studentId, mark, examId;
 
         try {
-            System.out.println("Enter studentId");
-            studentId = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter mark");
-            mark = sc.nextInt();
-            sc.nextLine();
-            System.out.println("Enter examId");
-            examId = sc.nextInt();
+            out.println("Enter studentId");
+            out.println("@r#");
+            studentId = Integer.parseInt(in.readLine());
+            out.println("Enter mark");
+            out.println("@r#");
+            mark = Integer.parseInt(in.readLine());
+            out.println("Enter examId");
+            out.println("@r#");
+            examId = Integer.parseInt(in.readLine());
             int id = studentList.getMaxId()+1;
             ExamGrade examGrade = new ExamGrade(id, studentId,mark, examId);
             examGradeList.addExamGrade(examGrade);
-            System.out.println("studentId:"+studentId +"mark: "+mark+"examId:"+examId);
-            sc.close();
+            out.println("studentId:"+studentId +"mark: "+mark+"examId:"+examId);
         }catch(Exception e){
-            System.out.println("invalid inputs");
+            out.println("invalid inputs");
         }
     }
 
-    public void deleteExam(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Exam name to remove");
-        String examName = sc.nextLine();
+    public void deleteExam() throws IOException {
+
+        out.println("Enter Exam name to remove");
+        out.println("@r#");
+        String examName = in.readLine();
         examList.deleteGrade(examName);
     }
 
-    public void deleteStudentAttendance(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Student id to remove");
-        int studentAttendanceId = sc.nextInt();
+    public void deleteStudentAttendance() throws IOException {
+
+        out.println("Enter Student id to remove");
+        out.println("@r#");
+        int studentAttendanceId = Integer.parseInt(in.readLine());
         studentAttendanceList.deleteStudentAttendance(studentAttendanceId);
     }
 

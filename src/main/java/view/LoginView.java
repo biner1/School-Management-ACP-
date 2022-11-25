@@ -1,6 +1,8 @@
 package main.java.view;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import main.java.controller.StaffList;
 import main.java.model.Staff;
@@ -8,20 +10,22 @@ import main.java.model.Staff;
 
 public class LoginView {
 
-    public void login() {
+    public void login(PrintWriter out, BufferedReader in) throws IOException {
 
         StaffList staffList = new StaffList();
         // login as who
-        System.out.println("______________Login view__________________");
-        Scanner sc = new Scanner(System.in);
+        out.println("______________Login view__________________");
 
+        String username;
+        String password;
         Staff staff = null;
-        while (staff == null) {
-            System.out.println("Enter UserName");
-            String username = sc.nextLine();
-
-            System.out.println("Enter Password");
-            String password = sc.nextLine();
+        while (true) {
+            out.println("Enter UserName");
+            out.println("@r#");
+            username = in.readLine();
+            out.println("Enter Password");
+            out.println("@r#");
+            password = in.readLine();
 
             staff = staffList.getStaffUsernamePassword(username, password);
             if (staff != null) {
@@ -29,19 +33,19 @@ public class LoginView {
                 switch (role) {
                     case "ADMIN" -> {
                         AdminView admin = new AdminView(staff);
-                        admin.login();
+                        admin.login(out,in);
                     }
                     case "TEACHER" -> {
                         TeacherView teacher = new TeacherView(staff);
-                        teacher.login();
+                        teacher.login(out,in);
                     }
                     case "ACCOUNTANT" -> {
                         AccountantView accountant = new AccountantView(staff);
-                        accountant.login();
+                        accountant.login(out,in);
                     }
                 } // end of switch
             } else {
-                System.out.println("wrong user name or password");
+                out.println("wrong user name or password");
             }
         }
     }// end of login()

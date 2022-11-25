@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import main.java.model.StaffPayment;
-import main.java.model.StudentPayment;
 
 public class StaffPaymentList {
     private ArrayList<StaffPayment> staffPayments;
@@ -82,17 +81,17 @@ public class StaffPaymentList {
         }
     }
 
-    public void printStaffPayments() {
+    public void printStaffPayments(PrintWriter out) {
         readFromFile();
         if (staffPayments.isEmpty()) {
-            System.out.println("there is no record of staff");
+            out.println("there is no record of staff");
         } else {
-            System.out.println("---------------------------------------------------------------\n" +
+            out.println("---------------------------------------------------------------\n" +
                     "payment Id|Staff Id|Salary|Payment Date");
             for (StaffPayment s : staffPayments) {
-                System.out.println(s.getPaymentId() + "|" + s.getStaffId() + "|" + s.getSalary() + "|" + s.getPaymentDate());
+                out.println(s.getPaymentId() + "|" + s.getStaffId() + "|" + s.getSalary() + "|" + s.getPaymentDate());
             }
-            System.out.println("================================================================");
+            out.println("================================================================");
         }
     }
 
