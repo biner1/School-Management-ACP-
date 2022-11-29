@@ -14,9 +14,9 @@ public class Client {
 
         try {
             serverConnection = new Socket("127.0.0.1", 6789);
-            System.out.println("connected to: "+serverConnection);
+            System.out.println("connected to: " + serverConnection);
         } catch (UnknownHostException e) {
-            System.err.println("Don't know host: yohohoho.");
+            System.err.println("Don't know host.");
             System.exit(1);
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for " + "the connection to: sv.");
@@ -27,29 +27,27 @@ public class Client {
         in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        String userInput,toServer;
+        String fromServer, toServer;
         System.out.println("connected");
 
-        while ((userInput = in.readLine()) != null) {
+        while ((fromServer = in.readLine()) != null) {
 
-		             boolean isServerAskForInput = userInput.equals("@r#");
+            boolean isServerAskForInput = fromServer.equals("@r#");
 
-		                 if (isServerAskForInput) {    // 1 if send then is ask for input from client
-		                      System.out.print("you> ");
-		                      toServer = stdIn.readLine();
-		                      if(toServer.equals("exit()")){
-								  out.close();
-								          in.close();
-								          stdIn.close();
-        								serverConnection.close();
-								  System.exit(1);
-								  }
-		                      out.println(toServer);
-		                  }
-		                  if(!isServerAskForInput)
-		                  	System.out.println(":: " + userInput);
-              }
-
+            if (isServerAskForInput) {
+                System.out.print("you> ");
+                toServer = stdIn.readLine();
+                if (toServer.equals("exit()")) {
+                    out.close();
+                    in.close();
+                    stdIn.close();
+                    serverConnection.close();
+                    System.exit(1);
+                }
+                out.println(toServer);
+            }else
+                System.out.println(":: " + fromServer);
+        }
 
 
     }
