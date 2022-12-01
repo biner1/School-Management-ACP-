@@ -1,30 +1,28 @@
 package main.java.view;
 
+import main.java.dbController.StudentController;
+import main.java.dbController.GradeController;
+import main.java.dbController.StaffController;
 import main.java.model.Staff;
 import main.java.model.StaffRole;
-import main.java.controller.StaffList;
-import main.java.controller.StudentList;
 import main.java.model.Student;
-import main.java.controller.GradeList;
 import main.java.model.Grade;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 
 public class AdminView {
 
-    Staff loggedInAdmin;
-    StaffList staffList = new StaffList();
-    StudentList studentList = new StudentList();
-    GradeList gradeList = new GradeList();
+    HashMap<String,String> loggedInAdmin;
 
     PrintWriter out = null;
     BufferedReader in = null;
 
-    public AdminView(Staff admin){
+    public AdminView(HashMap<String,String> admin){
         loggedInAdmin = admin;
     }
 
@@ -32,12 +30,12 @@ public class AdminView {
         this.out = out;
         this.in=in;
 
-        out.println("You are logged in as admin: "+loggedInAdmin.getUserName());
+        out.println("You are logged in as admin: "+loggedInAdmin.get("username"));
 
         int choice;
         while(true){
             out.println("__________enter admin choice___________");
-            out.println("\n1.Staff operations\n2.Student operations\n3.Grades operations\n0.exit the program");
+            out.println("\n1.Staff operations\n2.Student operations\n3.Grades operations\n0.LogOut");
 
             try {
                 out.println("@r#");
@@ -51,7 +49,7 @@ public class AdminView {
                     gradeOps();
                 }else if (choice ==0){ break;}
                 else {
-                    out.println("Enter a valid choice");
+                    out.println("please enter a given choice");
                 }
             }catch (Exception e){
                 out.println("invalid input");
@@ -79,9 +77,14 @@ public class AdminView {
                 if (choice == 1) {
                     addStaff();
                 } else if (choice == 2) {
-                    out.println("the number of staffs is: " + staffList.getNumberOfStaffs());
+                    out.println("the number of staffs is: " + StaffController.getStaffCount());
                 } else if (choice == 3) {
-                    staffList.printStaffs(out);
+                    ResultSet rs = StaffController.getStaffs();
+                    if(rs!=null){
+                        printStaffs(rs);
+                    }else {
+                        out.println("no staffs found");
+                    }
                 } else if (choice == 4) {
                     deleteStaff();
                 } else if (choice == 0) {
@@ -102,10 +105,11 @@ public class AdminView {
             out.println("\n_______Student Operations________");
             out.println("""
                     1.Add Student
-                    2.print number of Students
+                    2.Print number of Students
                     3.Display all students
                     4.Display students by name
-                    5.Delete student
+                    5.Delete student by name
+                    6.Delete student by id
                     0.back to main""");
 
             try {
@@ -114,19 +118,22 @@ public class AdminView {
                 if (choice == 1) {
                     addStudent();
                 } else if (choice == 2) {
-                    out.println("the number of students is: " + studentList.getNumberOfStudents());
+                    out.println("the number of students is: " + StudentController.getStudentCount());
                 } else if (choice == 3) {
-                    printStudents(studentList.getStudents());
+                    ResultSet rs = StudentController.getStudents();
+                    printStudents(rs);
                 } else if (choice == 4) {
-                    DisplayStudentsByName();
+                    displayStudentsByName();
                 } else if (choice == 5) {
-                    deleteStudent();
+                    deleteStudentUsername();
+                }else if (choice == 6){
+                    deleteStudentId();
                 } else if (choice == 0) {
                     break;
                 } else {
                     out.println("Enter a valid choice");
                 }
-            }catch (Exception e){
+            } catch (IOException e) {
                 out.println("invalid choice");
             }
         }// end of while
@@ -150,9 +157,14 @@ public class AdminView {
                 if (choice == 1) {
                     addGrade();
                 } else if (choice == 2) {
-                    out.println("the number of grades are: " + gradeList.getNumberOfGrades());
+                    out.println("the number of grades are: " + GradeController.getGradeCount());
                 } else if (choice == 3) {
-                    gradeList.printGrades(out);
+                    ResultSet rs = GradeController.getGrades();
+                    if (rs != null) {
+                        printGrades(rs);
+                    }else {
+                        out.println("No grades found");
+                    }
                 } else if (choice == 4) {
                     printGradeStudents();
                 } else if (choice == 5) {
@@ -173,7 +185,7 @@ public class AdminView {
     public void addStaff(){
 
         String username, gender, date, email, address, phone, password;
-
+        StaffRole role;
         try {
             out.println("Enter Username");
             out.println("@r#");
@@ -195,17 +207,19 @@ public class AdminView {
             phone = in.readLine();
             out.println("Enter Role");
             out.println("@r#");
-            StaffRole role = StaffRole.valueOf(in.readLine().toUpperCase());
+            role = StaffRole.valueOf(in.readLine().toUpperCase());
             out.println("Enter Salary");
             out.println("@r#");
             int salary = Integer.parseInt(in.readLine());
             out.println("Enter Password");
             out.println("@r#");
             password = in.readLine();
-            int id = staffList.getMaxId()+1;
-            Staff staff = new Staff(id, username, gender, date, email ,address, phone, role, salary, password);
-            staffList.addStaff(staff);
-            out.println(username +"added as: "+role);
+            Staff staff = new Staff(1, username, gender, date, email ,address, phone, role, salary, password);
+            int added = StaffController.addStaff(staff);
+            if(added == 0)
+                out.println("staff "+username +" not added");
+            else
+                out.println("staff "+username +" added with role of "+role);
         }catch(Exception e){
             out.println("invalid inputs");
         }
@@ -218,19 +232,37 @@ public class AdminView {
         try {
             out.println("@r#");
             username = in.readLine();
+            int rs = StaffController.deleteStaffUsername(username);
+            if(rs == 0)
+                out.println("staff "+username +" not deleted");
+            else
+                out.println("staff "+username +" deleted");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        staffList.deleteStaff(username);
     }
 
+    public void printStaffs(ResultSet stfList){
+        try {
+            out.println("id|username|gender|birthdate|email|address|phone|role|salary");
+            while (stfList.next()) {
+                out.println(stfList.getInt("id") + "|" + stfList.getString("username") + "|" +
+                        stfList.getString("gender")+ "|" + stfList.getString("birthdate") + "|" +
+                        stfList.getString("email") + "|" + stfList.getString("address") + "|" +
+                        stfList.getString("phone") + "|" + stfList.getString("role")+ "|" +
+                        stfList.getString("salary"));
+            }
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+    }
 
     //____________________________________Student operations_________________________
     public void addStudent(){
 
-
-        String username, gender, date, email, address, phone, password;
-
+        String username, gender, date, email, address, phone,password;
+        int gradeId;
         try {
             out.println("Enter Username");
             out.println("@r#");
@@ -252,73 +284,99 @@ public class AdminView {
             phone = in.readLine();
             out.println("Enter gradeId");
             out.println("@r#");
-            int gradeId = Integer.parseInt(in.readLine());
+            gradeId = Integer.parseInt(in.readLine());
             out.println("Enter Password");
             out.println("@r#");
             password = in.readLine();
-            int id = studentList.getMaxId()+1;
-            Student student = new Student(id, username, gender, date, email, address, phone, gradeId, password);
-            studentList.addStudent(student);
-            out.println("student "+username +" added to gradeId of "+gradeId);
+            Student student = new Student(1, username, gender, date, email, address, phone, gradeId, password);
+            int added = StudentController.addStudent(student);
+            if(added != 0)
+                out.println("student "+username +" added to gradeId of "+gradeId);
+            else
+                out.println("student "+username +" not added");
         }catch(Exception e){
             out.println("invalid inputs");
         }
     }// end of addStudent()
 
-    public void DisplayStudentsByName(){
-
+    public void displayStudentsByName(){
         out.println("Enter Student username");
         String name = null;
         try {
             out.println("@r#");
             name = in.readLine();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
-        ArrayList<Student> stList =  studentList.getStudentByUsername(name);
-        if(stList.isEmpty()){
+
+        ResultSet rs = StudentController.getStudentUsername(name);
+        if (rs != null) {
+            printStudents(rs);
+        } else {
             out.println("There is no students with that username");
-        }else {
-            printStudents(stList);
         }
+
     }
 
-    public void printStudents(ArrayList<Student> stList){
-        // printing students with grade
-        out.println("name|gender|phone|address|grade");
-        stList.forEach(s-> {
-            Optional<Grade> o=(gradeList.getGradeList().stream().filter(a->a.getGradeId()==s.getGradeId()).findAny());
-            if(o.isPresent()){
-                Grade r = o.get();
-                if(s.getGradeId()==r.getGradeId()){
-                    out.println(s.getUserName()+"|"+s.getGender()+"|"+s.getPhone()+"|"+s.getAddress()+"|"+r.getGradeName());
+    public void printStudents(ResultSet stList){
+
+        try {
+            if (stList != null) {
+                out.println("id|username|gender|birthdate|email|address|phone|gradeId");
+                while (stList.next()) {
+                    out.println(stList.getInt("id") + "|" + stList.getString("username") + "|" +
+                            stList.getString("gender")+ "|" + stList.getString("birthdate") + "|" +
+                            stList.getString("email") + "|" + stList.getString("address") + "|" +
+                            stList.getString("phone") + "|" + stList.getInt("gradeId"));
                 }
             }else {
-                out.println("students does not exist");
+                out.println("No students found");
             }
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
 
-        }); // end stList.forEach()
-    }// end of printStudents(ArrayList<Student> stList)
+    }// end of printStudents(ResultSet)
 
-    public void deleteStudent(){
+    public void deleteStudentUsername(){
 
-        out.println("Enter student name to remove");
-        out.println("@r#");
+        out.println("Enter student username to remove");
         String username = null;
         try {
             out.println("@r#");
             username = in.readLine();
+            int rs = StudentController.deleteStudentUsername(username);
+            if(rs==0)
+                out.println("student "+username +" not deleted");
+            else
+                out.println("student "+username +" deleted");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
         }
-        studentList.deleteStudent(username);
+    }
+
+    public void deleteStudentId(){
+
+        out.println("Enter student id to remove");
+        int id = 0;
+        try {
+            out.println("@r#");
+            id = Integer.parseInt(in.readLine());
+            int rs = StudentController.deleteStudentId(id);
+            if(rs==0)
+                out.println("student "+id +" not deleted");
+            else
+                out.println("student "+id +" deleted");
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     //____________________________________Grades operations__________________________
 
     public void addGrade(){
 
-        int id,gradeYear;
+        int gradeYear;
         String gradeName;
 
         try {
@@ -328,10 +386,13 @@ public class AdminView {
             out.println("Enter gradeYear");
             out.println("@r#");
             gradeYear = Integer.parseInt(in.readLine());
-            id=gradeList.getMaxId()+1;
-            Grade grade = new Grade(id,gradeName,gradeYear);
-            gradeList.addGrade(grade);
-            out.println("The Grade "+gradeName+" was added for year "+gradeYear);
+            Grade grade = new Grade(1,gradeName,gradeYear);
+
+            int gradeAdded = GradeController.addGrade(grade);
+            if(gradeAdded == 0)
+                out.println("grade "+gradeName +" not added");
+            else
+                out.println("grade "+gradeName +" added");
         }catch (Exception e){
             out.println("invalid inputs");
         }
@@ -339,53 +400,68 @@ public class AdminView {
 
     public void deleteGrade(){
 
-        out.println("Enter Grade name to remove");
-
         String gradeName = null;
+        int year = 0;
         try {
+            out.println("Enter Grade name to remove");
             out.println("@r#");
             gradeName = in.readLine();
+            out.println("Enter Grade year to remove");
+            out.println("@r#");
+            year = Integer.parseInt(in.readLine());
+            int rs = GradeController.deleteGrade(gradeName,year);
+            if(rs == 0)
+                out.println("grade "+gradeName +" not deleted");
+            else
+                out.println("grade "+gradeName +" deleted");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        gradeList.deleteGrade(gradeName);
     }//deleteGrade()
+
+    public void printGrades(ResultSet grList){
+
+        try {
+            out.println("id|gradeName|gradeYear");
+            while (grList.next()) {
+                out.println(grList.getInt("id") + "|" + grList.getString("name") + "|" +
+                        grList.getInt("year"));
+            }
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+
+    }// end of printGrades(ResultSet)
 
     public void printGradeStudents(){
 
-        out.println("Enter Grade Name");
         String name = null;
-        try {
-            out.println("@r#");
-            name = in.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        out.println("Enter Grade Year");
         int year = 0;
         try {
+            out.println("Enter Grade Name");
+            out.println("@r#");
+            name = in.readLine();
+            out.println("Enter Grade Year");
             out.println("@r#");
             year = Integer.parseInt(in.readLine());
+            ResultSet stList = GradeController.getGradeStudents(name,year);
+            if(stList == null) {
+                out.println("There is no students in this grade");
+            }
+            else {
+                while(stList.next()){
+                    out.println(stList.getString("username") + "|" + stList.getString("gender")+ "|" +
+                            stList.getString("address") + "|" + stList.getString("phone") + "|" +
+                            stList.getString("name"));
+                }
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.println(e.getMessage());
+        }catch (SQLException e){
+            System.err.println("SQLException in printGradeStudents()");
+            System.err.println(e.getMessage());
         }
 
-        int gradeId = gradeList.getGradeByNameYear(name,year);
-        if(gradeId == -1){
-            out.println("There is no Grade with the name: "+name+" and year "+year);
-        }
-        else {
-            ArrayList<Student> stList;
-            stList = studentList.getStudents().stream().filter(s -> s.getGradeId() == gradeId).collect(Collectors.toCollection(ArrayList::new));
-            if (!stList.isEmpty()) {
-                out.println("name|email|gender\n------------------------------------");
-                stList.forEach(s -> out.println(s.getUserName()+"|"+s.getEmail()+"|"+s.getGender()));
-                out.println("=================================================");
-            } else {
-                out.println("there is no student in the grade: " + name);
-            }
-        }
     }//printGradeStudents()
 
 }

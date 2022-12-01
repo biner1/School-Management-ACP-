@@ -13,17 +13,18 @@ public class StudentController {
     public static int addStudent(Student s) {
         String sql = "INSERT INTO `student`(`username`, `gender`, `birthdate`, `email`, `address`, `phone`, `gradeID`, `password`) VALUES (?,?,?,?,?,?,?,?)";
         try {
-             Connection conn = DBConnection.getDBConnection().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             stmt.setString(1, s.getUserName());
-             stmt.setString(2, s.getGender());
-             stmt.setString(3, s.getBirthDate());
-             stmt.setString(4, s.getEmail());
-             stmt.setString(5, s.getEmail());
-             stmt.setString(6, s.getPhone());
-             stmt.setInt(7, s.getGradeId());
-             stmt.setString(8, s.getUserPassword());
-             return stmt.executeUpdate();
+            Connection conn = DBConnection.getDBConnection().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, s.getUserName());
+            stmt.setString(2, s.getGender());
+            stmt.setString(3, s.getBirthDate());
+            stmt.setString(4, s.getEmail());
+            stmt.setString(5, s.getAddress());//TODO: change to address from email
+            stmt.setString(5, s.getEmail());
+            stmt.setString(6, s.getPhone());
+            stmt.setInt(7, s.getGradeId());
+            stmt.setString(8, s.getUserPassword());
+            return stmt.executeUpdate();
 
         } catch (SQLException e) {
             System.err.println("SQLException in db StudentController: addStudent()"+e.getMessage());
